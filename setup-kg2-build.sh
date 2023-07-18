@@ -119,15 +119,16 @@ chmod +x ${BUILD_DIR}/owltools
 
 } >${setup_log_file} 2>&1
 
-if [[ "${build_flag}" != "travisci" ]]
-then
-    ## setup AWS CLI
-    if ! ${s3_cp_cmd} s3://${s3_bucket}/test-file-do-not-delete /tmp/; then
-        aws configure
-    else
-        rm -f /tmp/test-file-do-not-delete
-    fi
-fi
+# commenting out the below to avoid AWS work
+# if [[ "${build_flag}" != "travisci" ]]
+# then
+#     ## setup AWS CLI
+#     if ! ${s3_cp_cmd} s3://${s3_bucket}/test-file-do-not-delete /tmp/; then
+#         aws configure
+#     else
+#         rm -f /tmp/test-file-do-not-delete
+#     fi
+# fi
 
 {
 RAPTOR_NAME=raptor2-2.0.15
@@ -178,7 +179,8 @@ date
 echo "================= script finished ================="
 } >> ${setup_log_file} 2>&1
 
-if [[ "${build_flag}" != "travisci" ]]
-then
-    ${s3_cp_cmd} ${setup_log_file} s3://${s3_bucket_versioned}/
-fi
+# commenting out the below to avoid AWS work
+# if [[ "${build_flag}" != "travisci" ]]
+# then
+#     ${s3_cp_cmd} ${setup_log_file} s3://${s3_bucket_versioned}/
+# fi
