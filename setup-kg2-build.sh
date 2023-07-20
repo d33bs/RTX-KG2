@@ -23,7 +23,7 @@ if [[ "${build_flag}" == "travisci" ]]
 then
     sed -i "\@CODE_DIR=~/kg2-code@cCODE_DIR=/home/travis/build/RTXteam/RTX-KG2" ${config_dir}/master-config.shinc
 fi
-source ${config_dir}/master-config.shinc
+# source ${config_dir}/master-config.shinc
 
 if [[ "${build_flag}" != "test" ]]
 then
@@ -32,8 +32,8 @@ else
     test_str="-test"
 fi
 
-mysql_user=ubuntu
-mysql_password=1337
+# mysql_user=ubuntu
+# mysql_password=1337
 if [[ "${build_flag}" != "travisci" ]]
 then
     psql_user=ubuntu
@@ -56,44 +56,47 @@ if [ ! -L ${CODE_DIR} ]; then
     fi
 fi
 
-## install the Linux distro packages that we need (python3-minimal is for docker installations)
-sudo apt-get update
+# adding these to the dockerfile configuration
+# ## install the Linux distro packages that we need (python3-minimal is for docker installations)
+# sudo apt-get update
 
-## handle weird tzdata install (this makes UTC the timezone)
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+# ## handle weird tzdata install (this makes UTC the timezone)
+# sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 
-# install various other packages used by the build system
-#  - curl is generally used for HTTP downloads
-#  - wget is used by the neo4j installation script (some special "--no-check-certificate" mode)
-sudo apt-get install -y \
-     default-jre \
-     awscli \
-     zip \
-     curl \
-     wget \
-     flex \
-     bison \
-     libxml2-dev \
-     gtk-doc-tools \
-     libtool \
-     automake \
-     git \
-     libssl-dev
+# # install various other packages used by the build system
+# #  - curl is generally used for HTTP downloads
+# #  - wget is used by the neo4j installation script (some special "--no-check-certificate" mode)
+# sudo apt-get install -y \
+#      default-jre \
+#      awscli \
+#      zip \
+#      curl \
+#      wget \
+#      flex \
+#      bison \
+#      libxml2-dev \
+#      gtk-doc-tools \
+#      libtool \
+#      automake \
+#      git \
+#      libssl-dev
 
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password ${mysql_password}"
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${mysql_password}"
+# added mysql sections to dockerfile configuration
+# sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password ${mysql_password}"
+# sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${mysql_password}"
 
-sudo apt-get install -y mysql-server \
-     mysql-client \
-     libmysqlclient-dev \
-     python3-mysqldb
+# sudo apt-get install -y mysql-server \
+#      mysql-client \
+#      libmysqlclient-dev \
+#      python3-mysqldb
 
-sudo service mysql start
-if [[ "${build_flag}" != "travisci" ]]
-then
-    ## this is for convenience when I am remote working
-    sudo apt-get install -y emacs
-fi
+# sudo service mysql start
+
+# if [[ "${build_flag}" != "travisci" ]]
+# then
+#     ## this is for convenience when I am remote working
+#     sudo apt-get install -y emacs
+# fi
 
 # we want python3.7 (also need python3.7-dev or else pip cannot install the python package "mysqlclient")
 if [[ "${build_flag}" != "travisci" ]]
@@ -143,31 +146,32 @@ make check
 sudo make install
 sudo ldconfig
 
-if [[ "${build_flag}" != "travisci" ]]
-then
-    # setup MySQL
-    MYSQL_PWD=${mysql_password} mysql -u root -e "CREATE USER IF NOT EXISTS '${mysql_user}'@'localhost' IDENTIFIED BY '${mysql_password}'"
-    MYSQL_PWD=${mysql_password} mysql -u root -e "GRANT ALL PRIVILEGES ON *.* to '${mysql_user}'@'localhost'"
+# added to dockerfile
+# if [[ "${build_flag}" != "travisci" ]]
+# then
+#     # setup MySQL
+#     MYSQL_PWD=${mysql_password} mysql -u root -e "CREATE USER IF NOT EXISTS '${mysql_user}'@'localhost' IDENTIFIED BY '${mysql_password}'"
+#     MYSQL_PWD=${mysql_password} mysql -u root -e "GRANT ALL PRIVILEGES ON *.* to '${mysql_user}'@'localhost'"
+#
+#     cat >${mysql_conf} <<EOF
+# [client]
+# user = ${mysql_user}
+# password = ${mysql_password}
+# host = localhost
+# EOF
 
-    cat >${mysql_conf} <<EOF
-[client]
-user = ${mysql_user}
-password = ${mysql_password}
-host = localhost
-EOF
+    # ## set mysql server variable to allow loading data from a local file
+    # mysql --defaults-extra-file=${mysql_conf} \
+    #       -e "set global local_infile=1"
 
-    ## set mysql server variable to allow loading data from a local file
-    mysql --defaults-extra-file=${mysql_conf} \
-          -e "set global local_infile=1"
-
-    ## setup PostGreSQL
-    sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-    sudo apt-get update
-    sudo apt-get -y install postgresql
-    sudo -u postgres psql -c "DO \$do\$ BEGIN IF NOT EXISTS ( SELECT FROM pg_catalog.pg_roles WHERE rolname = '${psql_user}' ) THEN CREATE ROLE ${psql_user} LOGIN PASSWORD null; END IF; END \$do\$;"
-    sudo -u postgres psql -c "ALTER USER ${psql_user} WITH password null"
-fi
+    # ## setup PostGreSQL
+    # sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+    # wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+    # sudo apt-get update
+    # sudo apt-get -y install postgresql
+#     sudo -u postgres psql -c "DO \$do\$ BEGIN IF NOT EXISTS ( SELECT FROM pg_catalog.pg_roles WHERE rolname = '${psql_user}' ) THEN CREATE ROLE ${psql_user} LOGIN PASSWORD null; END IF; END \$do\$;"
+#     sudo -u postgres psql -c "ALTER USER ${psql_user} WITH password null"
+# fi
 
 if [[ "${build_flag}" == "travisci" ]]
 then

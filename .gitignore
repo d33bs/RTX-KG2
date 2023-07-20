@@ -18,3 +18,6 @@ snakemake-config.yaml
 
 # macOS finder folder-level attributes
 **/.DS_store
+
+# images ignore
+image
