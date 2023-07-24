@@ -3,10 +3,11 @@
 #   in the directory identified by the environment variable VENV_DIR (which must already exist before this
 #   script is executed)
 
-sudo apt-get update
-sudo apt-get install -y software-properties-common
-sudo -E add-apt-repository -y ppa:deadsnakes/ppa
-sudo apt-get install -y python3.7 python3.7-dev python3.7-venv
+# added to dockerfile configuration
+# sudo apt-get update
+# sudo apt-get install -y software-properties-common
+# sudo -E add-apt-repository -y ppa:deadsnakes/ppa
+# sudo apt-get install -y python3.7 python3.7-dev python3.7-venv
 
 # some shenanigans required in order to install pip into python3.7 (not into python3.6!)
 curl -s https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py

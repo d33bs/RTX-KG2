@@ -65,9 +65,9 @@ ENV mysql_password=1337
 ENV psql_user=ubuntu
 ENV DEBIAN_FRONTEND=noninteractive
 ENV MYSQL_ROOT_PASSWORD=${mysql_password}
-ENV BUILD_DIR=~/kg2-build
-ENV VENV_DIR=~/kg2-venv
-ENV CODE_DIR=~/kg2-code
+ENV BUILD_DIR=/home/ubuntu/kg2-build
+ENV VENV_DIR=/home/ubuntu/kg2-venv
+ENV CODE_DIR=/home/ubuntu/kg2-code
 ENV umls_dir=${BUILD_DIR}/umls
 ENV umls_dest_dir=${umls_dir}/META
 ENV s3_region=us-west-2
@@ -118,5 +118,5 @@ RUN sudo service postgresql start && \
 
 # (4) Setup the KG2 build system: 
 # Note: bash with the -x flag uses xtrace
-RUN bash -x /home/ubuntu/RTX-KG2/setup-kg2-build.sh
+RUN bash /home/ubuntu/RTX-KG2/setup-kg2-build.sh
 

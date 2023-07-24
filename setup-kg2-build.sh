@@ -5,6 +5,7 @@
 # Options:
 # ./setup-kg2-build.sh test       Generates a logfile `setup-kg2-build-test.log` instead of `setup-kg2-build.log`
 # ./setup-kg2-build.sh travisci   Accommodate Travis CI's special runtime environment
+set -x
 
 set -o nounset -o pipefail -o errexit
 
@@ -159,16 +160,14 @@ sudo ldconfig
 # password = ${mysql_password}
 # host = localhost
 # EOF
-
-    # ## set mysql server variable to allow loading data from a local file
-    # mysql --defaults-extra-file=${mysql_conf} \
-    #       -e "set global local_infile=1"
-
-    # ## setup PostGreSQL
-    # sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-    # wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-    # sudo apt-get update
-    # sudo apt-get -y install postgresql
+# ## set mysql server variable to allow loading data from a local file
+# mysql --defaults-extra-file=${mysql_conf} \
+#       -e "set global local_infile=1"
+# ## setup PostGreSQL
+# sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+# wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+# sudo apt-get update
+# sudo apt-get -y install postgresql
 #     sudo -u postgres psql -c "DO \$do\$ BEGIN IF NOT EXISTS ( SELECT FROM pg_catalog.pg_roles WHERE rolname = '${psql_user}' ) THEN CREATE ROLE ${psql_user} LOGIN PASSWORD null; END IF; END \$do\$;"
 #     sudo -u postgres psql -c "ALTER USER ${psql_user} WITH password null"
 # fi
