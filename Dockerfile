@@ -95,8 +95,6 @@ WORKDIR /home/ubuntu
 
 # install rust for pydantic compatibility
 RUN sudo apt-get install -y \
-    rustc \
-    cargo \
     libjpeg-dev \
     zlib1g-dev \
     libffi-dev \
@@ -109,8 +107,8 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no
 # add cargo to path. note: rustc installation
 # assumes per user pathing associated with ubuntu user
 ENV PATH="/home/ubuntu/.cargo/bin:${PATH}"
-RUN rustup toolchain link system /usr
-RUN rustup default system
+# RUN rustup toolchain link system /usr
+# RUN rustup default system
 # install nightly rust to avoid E0658 codes
 # https://doc.rust-lang.org/error_codes/E0658.html
 RUN rustup install nightly

@@ -157,7 +157,6 @@ then
     ${VENV_DIR}/bin/pip3 uninstall --yes setuptools
     ${VENV_DIR}/bin/pip3 install setuptools
     
-
     # clone and install pydantic-core, dependency of other pkgs
     git clone --branch v2.3.0 --depth 1 --single-branch https://github.com/pydantic/pydantic-core $BUILD_DIR/pydantic-core
     cd $BUILD_DIR/pydantic-core
