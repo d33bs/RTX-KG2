@@ -43,7 +43,6 @@ fi
 mkdir -p ${BUILD_DIR}
 setup_log_file=${BUILD_DIR}/setup-kg2-build${test_str}.log
 
-{
 echo "================= starting setup-kg2.sh ================="
 date
 
@@ -102,7 +101,67 @@ fi
 # we want python3.7 (also need python3.7-dev or else pip cannot install the python package "mysqlclient")
 if [[ "${build_flag}" != "travisci" ]]
 then
-    source ${CODE_DIR}/setup-python37-with-pip3-in-ubuntu.shinc
+    # ported from setup-python37-with-pip3-in-ubuntu.shinc for simplification
+    # this [portion of the] shell script is meant to be run with "source" assuming that you have already sourced "master.shinc"
+    # - installs python3.7 in either Ubuntu 18.04 or 20.04, along with pip3, and creates a python3.7 virtualenv
+    #   in the directory identified by the environment variable VENV_DIR (which must already exist before this
+    #   script is executed)
+
+    # added to dockerfile configuration
+    # sudo apt-get update
+    # sudo apt-get install -y software-properties-common
+    # sudo -E add-apt-repository -y ppa:deadsnakes/ppa
+    # sudo apt-get install -y python3.7 python3.7-dev python3.7-venv
+
+    # some shenanigans required in order to install pip into python3.7 (not into python3.6!)
+    curl -s https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+    apt-get download python3-distutils
+    if [ -f python3-distutils_3.6.9-1~18.04_all.deb ]
+    then
+    python3_distutils_filename=python3-distutils_3.6.9-1~18.04_all.deb
+    else
+        if [ -f python3-distutils_3.8.10-0ubuntu1~20.04_all.deb ]
+        then
+    python3_distutils_filename=python3-distutils_3.8.10-0ubuntu1~20.04_all.deb
+        else
+            >&2 echo "Unrecognized python3 distutils .deb package filename; this is a bug in setup-python37-with-pip3-in-ubuntu.shinc"
+            exit 1
+        fi
+    fi
+    mv ${python3_distutils_filename} /tmp
+    sudo dpkg-deb -x /tmp/${python3_distutils_filename} /
+    sudo -H python3.7 /tmp/get-pip.py 2>&1 | grep -v "WARNING: Running pip as the 'root' user"
+
+    ## create a virtualenv for building KG2
+    python3.7 -m venv ${VENV_DIR}
+
+    ## Install python3 packages that we will need (Note: we are not using pymongo
+    ## directly, but installing it silences a runtime warning from ontobio):
+    ## (maybe we should eventually move this to a requirements.txt file?)
+    # added: 
+    # - build to enable pyproject.toml installations from dependencies (notably, pydanatic-core)
+    # - setuptools-rust for cryptography pkg dependency build
+    ${VENV_DIR}/bin/pip3 install wheel build pyopenssl
+    # upgrade setuptools for installations
+    ${VENV_DIR}/bin/pip3 install setuptools -U
+
+    # installation for cryptography dep.
+    ${VENV_DIR}/bin/pip3 install setuptools-rust
+    ${VENV_DIR}/bin/pip3 install "cryptography>=2.0"
+
+    # backout from setuptools-rust for setuptools and other dep installations
+    # ${VENV_DIR}/bin/pip3 uninstall --yes setuptools
+    
+
+    # clone and install pydantic-core, dependency of other pkgs
+    git clone --branch v2.3.0 --depth 1 --single-branch https://github.com/pydantic/pydantic-core $BUILD_DIR/pydantic-core
+    cd $BUILD_DIR/pydantic-core
+    # creates a wheel from pypoject.toml (py3.7 is incompatible with pyproject.toml)
+    ${VENV_DIR}/bin/python3 -m build
+    # install from the wheel
+    ${VENV_DIR}/bin/pip3 install dist/pydantic_core-2.3.0-cp37-cp37m-linux_x86_64.whl
+    # return to the prior directory
+    cd -
     ${VENV_DIR}/bin/pip3 install -r ${CODE_DIR}/requirements-kg2-build.txt
 else
     pip install -r ${CODE_DIR}/requirements-kg2-build.txt
@@ -121,7 +180,7 @@ chmod +x ${BUILD_DIR}/robot
 ${curl_get} ${BUILD_DIR} https://github.com/RTXteam/owltools/releases/download/v0.3.0/owltools > ${BUILD_DIR}/owltools
 chmod +x ${BUILD_DIR}/owltools
 
-} >${setup_log_file} 2>&1
+
 
 # commenting out the below to avoid AWS work
 # if [[ "${build_flag}" != "travisci" ]]
@@ -134,7 +193,6 @@ chmod +x ${BUILD_DIR}/owltools
 #     fi
 # fi
 
-{
 RAPTOR_NAME=raptor2-2.0.15
 # setup raptor (used by the "checkOutputSyntax.sh" script in the umls2rdf package)
 ${curl_get} -o ${BUILD_DIR}/${RAPTOR_NAME}.tar.gz http://download.librdf.org/source/${RAPTOR_NAME}.tar.gz
@@ -180,7 +238,6 @@ fi
 date
 
 echo "================= script finished ================="
-} >> ${setup_log_file} 2>&1
 
 # commenting out the below to avoid AWS work
 # if [[ "${build_flag}" != "travisci" ]]

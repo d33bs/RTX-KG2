@@ -36,6 +36,9 @@ pandas==1.0.3
 pathtools==0.1.2
 portalocker==1.4.0
 prefixcommons==0.1.9
+# added for explicit installation reference alongside other deps.
+# should be installed earlier with build and local wheel reference
+pydantic-core==2.3.0
 pymongo==3.8.0
 PyMySQL==0.9.3
 pyparsing==2.4.7

@@ -48,7 +48,7 @@ RUN apt-get install -y \
     mysql-client \
     libmysqlclient-dev \
     python3-mysqldb \
-    postgresql
+    postgresql 
 
 # give sudo privilege to user ubuntu:
 RUN usermod -aG sudo ubuntu
@@ -93,28 +93,43 @@ ENV biolink_model_version=3.1.2
 # (2) change to the home directory for user `ubuntu`:
 WORKDIR /home/ubuntu
 
+# install rust for pydantic compatibility
+RUN sudo apt-get install -y \
+    rustc \
+    cargo \
+    libjpeg-dev \
+    zlib1g-dev \
+    libffi-dev \
+    build-essential \
+    pkg-config
+
+# add cargo to path. note: rustc installation
+# assumes per user pathing associated with ubuntu user
+ENV PATH="/home/ubunutu/.cargo/bin:${PATH}"
+
 RUN mkdir -p ${BUILD_DIR}
 
-# (3) Clone the RTX software from GitHub:
-# Defering to use local copy of source to keep builds in alignment
-# with current branch or fork code.
-COPY . /home/ubuntu/RTX-KG2
-
-RUN sudo chmod +x /home/ubuntu/RTX-KG2/wait-for-mysql.sh
+# copy mysql config for commands below
+COPY ./mysql-config.conf /home/ubuntu/RTX-KG2/mysql-config.conf
 
 # mysql configuration block
 # set mysql server variable to allow loading data from a local file
-
-# start mysql and run configurations
+# note: we use chained commands here to enable docker build with configuration commands
 RUN sudo service mysql start && \
     sudo mysql -u root -e "CREATE USER IF NOT EXISTS '${mysql_user}'@'localhost' IDENTIFIED BY '${mysql_password}';" && \
     sudo mysql -u root --password="${mysql_password}" -e "GRANT ALL PRIVILEGES ON *.* to '${mysql_user}'@'localhost';" && \
     sudo mysql --defaults-extra-file=${mysql_conf} -e "set global local_infile=1"
 
 # start postgres and run configuration
+# note: we use chained commands here to enable docker build with configuration commands
 RUN sudo service postgresql start && \
     sudo -u postgres psql -c "DO \$do\$ BEGIN IF NOT EXISTS ( SELECT FROM pg_catalog.pg_roles WHERE rolname = '${psql_user}' ) THEN CREATE ROLE ${psql_user} LOGIN PASSWORD null; END IF; END \$do\$;" && \
     sudo -u postgres psql -c "ALTER USER ${psql_user} WITH password null"
+
+# (3) Clone the RTX software from GitHub:
+# Defering to use local copy of source to keep builds in alignment
+# with current branch or fork code.
+COPY . /home/ubuntu/RTX-KG2
 
 # (4) Setup the KG2 build system: 
 # Note: bash with the -x flag uses xtrace
