@@ -139,18 +139,23 @@ then
     ## directly, but installing it silences a runtime warning from ontobio):
     ## (maybe we should eventually move this to a requirements.txt file?)
     # added: 
+    # - setuptools update
     # - build to enable pyproject.toml installations from dependencies (notably, pydanatic-core)
     # - setuptools-rust for cryptography pkg dependency build
-    ${VENV_DIR}/bin/pip3 install wheel build pyopenssl
     # upgrade setuptools for installations
-    ${VENV_DIR}/bin/pip3 install setuptools -U
-
     # installation for cryptography dep.
-    ${VENV_DIR}/bin/pip3 install setuptools-rust
+    ${VENV_DIR}/bin/pip3 uninstall --yes setuptools 
+    ${VENV_DIR}/bin/pip3 install setuptools-rust pip setuptools -U
     ${VENV_DIR}/bin/pip3 install "cryptography>=2.0"
+    # installation for cffi
+    ${VENV_DIR}/bin/pip3 install cffi
+
+    ${VENV_DIR}/bin/pip3 install wheel build
+
 
     # backout from setuptools-rust for setuptools and other dep installations
-    # ${VENV_DIR}/bin/pip3 uninstall --yes setuptools
+    ${VENV_DIR}/bin/pip3 uninstall --yes setuptools
+    ${VENV_DIR}/bin/pip3 install setuptools
     
 
     # clone and install pydantic-core, dependency of other pkgs

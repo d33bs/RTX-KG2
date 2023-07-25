@@ -101,11 +101,19 @@ RUN sudo apt-get install -y \
     zlib1g-dev \
     libffi-dev \
     build-essential \
-    pkg-config
+    pkg-config \
+    python3-setuptools
 
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 # add cargo to path. note: rustc installation
 # assumes per user pathing associated with ubuntu user
-ENV PATH="/home/ubunutu/.cargo/bin:${PATH}"
+ENV PATH="/home/ubuntu/.cargo/bin:${PATH}"
+RUN rustup toolchain link system /usr
+RUN rustup default system
+# install nightly rust to avoid E0658 codes
+# https://doc.rust-lang.org/error_codes/E0658.html
+RUN rustup install nightly
 
 RUN mkdir -p ${BUILD_DIR}
 
