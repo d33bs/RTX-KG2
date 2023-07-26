@@ -111,7 +111,7 @@ ENV PATH="/home/ubuntu/.cargo/bin:${PATH}"
 # RUN rustup default system
 # install nightly rust to avoid E0658 codes
 # https://doc.rust-lang.org/error_codes/E0658.html
-RUN rustup install nightly
+RUN rustup install 1.71.0
 
 RUN mkdir -p ${BUILD_DIR}
 
