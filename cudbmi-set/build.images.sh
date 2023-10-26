@@ -26,6 +26,9 @@ rm -f ./image/*
 # Check if the builder with the specified name already exists
 if ! docker buildx inspect mybuilder >/dev/null 2>&1; then
     # Builder does not exist, create it
+    # note: requires additional driver-opt and buildkitd-flags to avoid
+    # local network issues "ERROR: failed to solve: granting entitlement network.host..."
+    # referenced: https://github.com/docker/buildx/issues/835#issuecomment-966496802
     docker buildx create \
     --use \
     --name mybuilder \
