@@ -47,7 +47,7 @@ flowchart TB
     created_data
 ```
 
-## Image Build
+## Image build
 
 This section describes how to build the image which will be used to create the dataset.
 
@@ -79,17 +79,22 @@ This section describes how to build the image which will be used to create the d
 
 1. Install Docker Desktop.
 
-1. Run `sh ./cudbmi-set/build.images.sh`
+#### Image build and upload
+
+1. Build images by running `sh ./cudbmi-set/build.images.sh`
 
    1. Build an Docker image `kg2:latest`: `docker image build -t kg2 ./Dockerfile`
    1. Build an extended Docker image which references the original kg2 image build (for decoupled additions from the upstream): `docker image build -t kg2-cudbmi-set ./cudbmi-set/Dockerfile.build-extended`
    1. Convert the related materials into Apptainer/Singularity images.
+   1. Upload Singularity image to Github repo
 
-1. Create a container called `kg2` from the `kg2:latest` image: `sudo docker create --name kg2 kg2:latest`
+#### Run container
 
-1. Start the `kg2` container: `sudo docker start kg2`
+1. Retrieve Apptainer/Singularity image from GitHub: `curl -LJO https://github.com/d33bs/RTX-KG2/releases/download/cudbmi-set-singularity-image/kg2-cudbmi-set.sif`
 
-1. Open a bash shell as user `root` inside the container: `sudo docker exec -it kg2 /bin/bash`
+1. `singularity exec --writable-tmpfs -e --userns --cleanenv kg2-cudbmi-set.sif /bin/bash`
+
+#### Preparations within the container
 
 1. Become user `ubuntu`: `su - ubuntu`
 
@@ -191,7 +196,7 @@ This section describes how to build the image which will be used to create the d
 
    - At the end of the build process, you should inspect the logfile `~/kg2-build/filter_kg_and_remap_predicates.log`
 
-## Dataset Creation
+## Dataset creation
 
 This section describes how to create the dataset by running a container based on the image built above.
 
@@ -212,7 +217,7 @@ This section describes how to create the dataset by running a container based on
   - Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
   - At the end of the build process, you should inspect the logfile `~/kg2-build/filter_kg_and_remap_predicates.log`
 
-## Dataset Transfer
+## Dataset transfer
 
 This section describes how to transfer the data created by from the dataset creation steps above.
 

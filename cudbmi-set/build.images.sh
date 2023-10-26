@@ -8,9 +8,9 @@ export TARGET_PLATFORM=linux/amd64
 export TARGET_KG2_DOCKERFILE=./Dockerfile
 export TARGET_KG2_TAG=kg2
 export TARGET_CUDBMI_DOCKERFILE=./cudbmi-set/Dockerfile.build-extended
-export TARGET_KG2_TAG=kg2-cudbmi-set
-export TARGET_DOCKER_IMAGE_FILENAME=$TARGET_TAG.tar.gz
-export TARGET_SINGULARITY_IMAGE_FILENAME=$TARGET_TAG.sif
+export TARGET_CUDBMI_TAG=kg2-cudbmi-set
+export TARGET_DOCKER_IMAGE_FILENAME=$TARGET_KG2_TAG.tar.gz
+export TARGET_SINGULARITY_IMAGE_FILENAME=$TARGET_CUDBMI_TAG.sif
 export TARGET_DOCKER_IMAGE_FILEPATH=./image/$TARGET_DOCKER_IMAGE_FILENAME
 
 # make image dir if it doesn't already exist
