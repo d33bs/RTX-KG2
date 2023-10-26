@@ -70,7 +70,7 @@ docker buildx build --network=host \
 # docker buildx build --platform $DOCKER_SINGULARITY_PLATFORM -t $TARGET_TAG . --load
 docker save $TARGET_CUDBMI_TAG | gzip > $TARGET_DOCKER_IMAGE_FILEPATH
 
-# #load the docker image to test that the results work (in docker)
+# load and run the docker image to test that the results work (in docker)
 docker load -i $TARGET_DOCKER_IMAGE_FILEPATH
 docker run --platform $TARGET_PLATFORM \
     -it $TARGET_CUDBMI_TAG \
