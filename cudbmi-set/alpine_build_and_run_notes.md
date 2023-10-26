@@ -86,19 +86,14 @@ This section describes how to build the image which will be used to create the d
    1. Build an Docker image `kg2:latest`: `docker image build -t kg2 ./Dockerfile`
    1. Build an extended Docker image which references the original kg2 image build (for decoupled additions from the upstream): `docker image build -t kg2-cudbmi-set ./cudbmi-set/Dockerfile.build-extended`
    1. Convert the related materials into Apptainer/Singularity images.
-   1. Upload Singularity image to Github repo
 
-#### Run container
+#### Testing within the container
 
-1. Retrieve Apptainer/Singularity image from GitHub: `curl -LJO https://github.com/d33bs/RTX-KG2/releases/download/cudbmi-set-singularity-image/kg2-cudbmi-set.sif`
+1. Run and enter the container shell `singularity exec --writable-tmpfs -e --userns --cleanenv images/kg2-cudbmi-set.sif /bin/bash`
 
-1. `singularity exec --writable-tmpfs -e --userns --cleanenv kg2-cudbmi-set.sif /bin/bash`
-
-#### Preparations within the container
-
-1. Become user `ubuntu`: `su - ubuntu`
-
-1. Setup the KG2 build system: `bash -x RTX-KG2/setup-kg2-build.sh`
+1. Run the script `bash -x RTX-KG2/cudbmi-set/run.kg2-scripts.sh`
+    1. Become user `ubuntu`: `su - ubuntu`
+    1. Setup the KG2 build system: `bash -x RTX-KG2/setup-kg2-build.sh`
 
 1. At some point, the script will print `fatal error: Unable to locate credentials`
 
@@ -180,21 +175,7 @@ This section describes how to build the image which will be used to create the d
    ================ script finished ============================
    ```
 
-1. Data builds:
-
-   - THIS STEP COMMENCES THE BUILD. Within the screen session, run: `bash -x ~/kg2-code/build-kg2-snakemake.sh all -F`
-   - Test build: `bash -x ~/kg2-code/build-kg2-snakemake.sh alltest`
-     - In the case of a test build, the a couple log file names are changed:
-       - `~/kg2-build/build-kg2-snakemake-test.log`
-       - `~/kg2-build/build-kg2-ont-test-stderr.log`
-       - and all of the intermediate JSON and TSV files that the build system creates will have `-test` appended to the filename before the usual filename suffix (`.json`).
-   - Partial Test Build: `bash -x ~/kg2-code/build-kg2-snakemake.sh test`
-     - This option is frequently used in testing/development. Note, you have to have previously run an `alltest` build, or else a `test` build will not work.
-   - Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
-
-1. Data log validation:
-
-   - At the end of the build process, you should inspect the logfile `~/kg2-build/filter_kg_and_remap_predicates.log`
+1. Upload Singularity image to Github repo
 
 ## Dataset creation
 
@@ -216,6 +197,57 @@ This section describes how to create the dataset by running a container based on
   - Each build of KG2 is labeled with a unique build date/timestamp. The build timestamp can be found in the `build` slot of the `kg2-simplified.json` file and it can be found in the node with ID `RTX:KG2` in the Neo4j KG2 database.
   - Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
   - At the end of the build process, you should inspect the logfile `~/kg2-build/filter_kg_and_remap_predicates.log`
+
+### Steps
+
+Note: this assumes the section above, resulting in a Github Singularity image release is available.
+
+#### Run container
+
+1. Retrieve Apptainer/Singularity image from GitHub: `curl -LJO https://github.com/d33bs/RTX-KG2/releases/download/cudbmi-set-singularity-image/kg2-cudbmi-set.sif`
+
+1. `singularity exec --writable-tmpfs -e --userns --cleanenv images/kg2-cudbmi-set.sif /bin/bash`
+
+#### Prepare and validate container configuration
+
+These steps are repeated from above as they only exist in the container and must be reproduced in each container runtime.
+
+1. Run the script `bash -x RTX-KG2/cudbmi-set/run.kg2-scripts.sh`
+    1. Become user `ubuntu`: `su - ubuntu`
+    1. Setup the KG2 build system: `bash -x RTX-KG2/setup-kg2-build.sh`
+
+1. At some point, the script will print `fatal error: Unable to locate credentials`
+
+1. The script will then prompt you to enter:
+
+   - your AWS Access Key ID
+   - your AWS Secret Access Key
+     - (both for an AWS account with access to the private S3 bucket that is configured in `master-config.shinc`)
+   - your default AWS region, which in our case is normally `us-west-2`
+     - (you should enter the AWS region that hosts the private S3 bucket that you intend to use with the KG2 build system)
+   - When prompted `Default output format [None]`, just hit enter/return.
+
+1. If all goes well, the setup script should end with the message: `upload: ../setup-kg2-build.log to s3://rtx-kg2-versioned/setup-kg2-build.log`
+
+1. Look in the log file `~/kg2-build/setup-kg2-build.log` to see if the script
+   completed successfully; it should end with `======= script finished ======`.
+   In that case it is safe to proceed.
+
+#### Data builds
+
+- THIS STEP COMMENCES THE BUILD. Within the screen session, run: `bash -x ~/kg2-code/build-kg2-snakemake.sh all -F`
+- Test build: `bash -x ~/kg2-code/build-kg2-snakemake.sh alltest`
+  - In the case of a test build, the a couple log file names are changed:
+    - `~/kg2-build/build-kg2-snakemake-test.log`
+    - `~/kg2-build/build-kg2-ont-test-stderr.log`
+    - and all of the intermediate JSON and TSV files that the build system creates will have `-test` appended to the filename before the usual filename suffix (`.json`).
+- Partial Test Build: `bash -x ~/kg2-code/build-kg2-snakemake.sh test`
+  - This option is frequently used in testing/development. Note, you have to have previously run an `alltest` build, or else a `test` build will not work.
+- Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
+
+1. Data log validation:
+
+   - At the end of the build process, you should inspect the logfile `~/kg2-build/filter_kg_and_remap_predicates.log`
 
 ## Dataset transfer
 
