@@ -1,5 +1,7 @@
-
 #!/bin/bash
+
+# used for building Docker and Apptainer/Singularity images for use
+# with RTX-KG2 on the University of Colorado's Alpine HPC
 
 # set env vars for use below
 export TARGET_PLATFORM=linux/amd64
@@ -30,15 +32,15 @@ docker buildx build --platform $TARGET_PLATFORM -f $TARGET_CUDBMI_DOCKERFILE -t 
 docker save $TARGET_TAG | gzip > $TARGET_DOCKER_IMAGE_FILEPATH
 
 # #load the docker image to test that the results work (in docker)
-# docker load -i $TARGET_DOCKER_IMAGE_FILEPATH
-# docker run --platform $DOCKER_SINGULARITY_PLATFORM -it $TARGET_TAG /bin/bash
+docker load -i $TARGET_DOCKER_IMAGE_FILEPATH
+docker run --platform $TARGET_PLATFORM -it $TARGET_TAG /bin/bash
 
 # build the docker image as a singularity image
-# docker build --platform $DOCKER_SINGULARITY_PLATFORM -f docker/Dockerfile.2.build-singularity-image -t singularity-builder .
-# docker run --platform $DOCKER_SINGULARITY_PLATFORM -v $PWD/image:/image -it --privileged singularity-builder 
-# docker run --platform $DOCKER_SINGULARITY_PLATFORM \
+# docker build --platform $TARGET_PLATFORM -f docker/Dockerfile.2.build-singularity-image -t singularity-builder .
+# docker run --platform $TARGET_PLATFORM -v $PWD/image:/image -it --privileged singularity-builder
+# docker run --platform $TARGET_PLATFORM \
 #     --volume $PWD/image:/image \
 #     --workdir /image \
 #     --privileged \
-#     quay.io/singularity/singularity:v3.10.4 \
+#     quay.io/singularity/singularity:v4.0.1 \
 #     build $TARGET_SINGULARITY_IMAGE_FILENAME docker-archive://$TARGET_DOCKER_IMAGE_FILENAME

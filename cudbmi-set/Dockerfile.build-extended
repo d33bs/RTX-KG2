@@ -1,4 +1,5 @@
 # to reference a local build of the kg2 image
+# hadolint ignore=DL3007
 FROM kg2:latest
 
 # change to the ubuntu user
@@ -8,7 +9,8 @@ USER ubuntu
 COPY . /home/ubuntu/RTX-KG2
 
 # add additional apt dependencies
-RUN sudo apt-get install -y screen
+# hadolint ignore=DL3008
+RUN apt-get install -y screen --no-install-recommends
 
 # make this container persistent
-CMD tail -f /dev/null
+CMD ["tail -f /dev/null"]
