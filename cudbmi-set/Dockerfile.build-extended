@@ -1,0 +1,14 @@
+# to reference a local build of the kg2 image
+FROM kg2:latest
+
+# change to the ubuntu user
+USER ubuntu
+
+# copy the contents of this repo to the container
+COPY . /home/ubuntu/RTX-KG2
+
+# add additional apt dependencies
+RUN sudo apt-get install -y screen
+
+# make this container persistent
+CMD tail -f /dev/null

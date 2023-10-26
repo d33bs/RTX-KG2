@@ -78,7 +78,9 @@ This section describes how to build the image which will be used to create the d
 ### Steps
 
 1. Install Docker Desktop.
-2. Build a Docker image `kg2:latest`: `sudo docker image build -t kg2 ./Dockerfile`
+2. Build an Docker image `kg2:latest`: `docker image build -t kg2 ./Dockerfile`
+3. Build an extended Docker image which references the original kg2 image build (for decoupled additions from the upstream): `docker image build -t kg2-cudbmi-set ./cudbmi-set/Dockerfile.build-extended`
+
 3. Create a container called `kg2` from the `kg2:latest` image: `sudo docker create --name kg2 kg2:latest`  
 4. Start the `kg2` container: `sudo docker start kg2`
 5. Open a bash shell as user `root` inside the container: `sudo docker exec -it kg2 /bin/bash`
