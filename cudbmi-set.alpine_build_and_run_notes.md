@@ -174,8 +174,7 @@ In that case it is safe to proceed.
         - This option is frequently used in testing/development. Note, you have to have previously run an `alltest` build, or else a `test` build will not work.
     - Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
 18. Data log validation:
-    - At the end of the build process, you should inspect the logfile
-`~/kg2-build/filter_kg_and_remap_predicates.log`
+    - At the end of the build process, you should inspect the logfile `~/kg2-build/filter_kg_and_remap_predicates.log`
 
 ## Dataset Creation
 
@@ -194,6 +193,9 @@ This section describes how to create the dataset by running a container based on
   - estimated to take 54-67 hours with Snakemake running on the built image
 - __Data result__:
   - `kg2-simplified.json.gz`
+  - Each build of KG2 is labeled with a unique build date/timestamp. The build timestamp can be found in the `build` slot of the `kg2-simplified.json` file and it can be found in the node with ID `RTX:KG2` in the Neo4j KG2 database.
+  - Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
+  - At the end of the build process, you should inspect the logfile `~/kg2-build/filter_kg_and_remap_predicates.log`
 
 ## Dataset Transfer
 
