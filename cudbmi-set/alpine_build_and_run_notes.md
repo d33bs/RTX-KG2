@@ -92,8 +92,9 @@ This section describes how to build the image which will be used to create the d
 1. Run and enter the container shell `singularity exec --writable-tmpfs -e --userns --cleanenv images/kg2-cudbmi-set.sif /bin/bash`
 
 1. Run the script `bash -x RTX-KG2/cudbmi-set/run.kg2-scripts.sh`
-    1. Become user `ubuntu`: `su - ubuntu`
-    1. Setup the KG2 build system: `bash -x RTX-KG2/setup-kg2-build.sh`
+
+   1. Become user `ubuntu`: `su - ubuntu`
+   1. Setup the KG2 build system: `bash -x RTX-KG2/setup-kg2-build.sh`
 
 1. At some point, the script will print `fatal error: Unable to locate credentials`
 
@@ -213,8 +214,9 @@ Note: this assumes the section above, resulting in a Github Singularity image re
 These steps are repeated from above as they only exist in the container and must be reproduced in each container runtime.
 
 1. Run the script `bash -x RTX-KG2/cudbmi-set/run.kg2-scripts.sh`
-    1. Become user `ubuntu`: `su - ubuntu`
-    1. Setup the KG2 build system: `bash -x RTX-KG2/setup-kg2-build.sh`
+
+   1. Become user `ubuntu`: `su - ubuntu`
+   1. Setup the KG2 build system: `bash -x RTX-KG2/setup-kg2-build.sh`
 
 1. At some point, the script will print `fatal error: Unable to locate credentials`
 

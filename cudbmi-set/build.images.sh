@@ -48,7 +48,7 @@ docker buildx build --platform $TARGET_PLATFORM \
 # which is unable to properly reference local images otherwise
 # referenced: https://github.com/docker/buildx/issues/301#issuecomment-755164475
 if ! [[ $(docker ps -a --filter "name=registry" --format '{{.Names}}') == "registry" ]]; then
-    # run a registry 
+    # run a registry
     docker run -d --name registry --network=host registry:2
 fi
 
@@ -57,7 +57,7 @@ docker tag kg2:latest localhost:5000/kg2:latest
 docker push localhost:5000/kg2:latest
 
 # build extended kg2 image with decoupled additions
-# note: we make minor modifcations to force the build to ref the local registry
+# note: we make minor modifications to force the build to ref the local registry
 # for using the locally built image above
 docker buildx build --network=host \
     --build-arg LOCAL_REGISTRY="localhost:5000" \
