@@ -70,16 +70,17 @@ docker buildx build --network=host \
 # docker buildx build --platform $DOCKER_SINGULARITY_PLATFORM -t $TARGET_TAG . --load
 docker save $TARGET_CUDBMI_TAG | gzip > $TARGET_DOCKER_IMAGE_FILEPATH
 
-# load and run the docker image to test that the results work (in docker)
+# load the docker image
 docker load -i $TARGET_DOCKER_IMAGE_FILEPATH
+# run the docker image with the contents of the build.test.sh script
+# note: if we fail here we exit and do not proceed to build the singularity image
+BUILD_TEST_SH_FILE="/home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh"
 docker run --platform $TARGET_PLATFORM \
-    -it $TARGET_CUDBMI_TAG \
+    $TARGET_CUDBMI_TAG \
     /bin/bash \
-    -c "chmod +x /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh && /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh"
+    -c "chmod +x $BUILD_TEST_SH_FILE && $BUILD_TEST_SH_FILE"
 
 # build the docker image as a singularity image
-# docker build --platform $TARGET_PLATFORM -f docker/Dockerfile.2.build-singularity-image -t singularity-builder .
-# docker run --platform $TARGET_PLATFORM -v $PWD/image:/image -it --privileged singularity-builder
 # docker run --platform $TARGET_PLATFORM \
 #     --volume $PWD/image:/image \
 #     --workdir /image \
