@@ -80,6 +80,15 @@ docker run --platform $TARGET_PLATFORM \
     /bin/bash \
     -c "chmod +x $BUILD_TEST_SH_FILE && $BUILD_TEST_SH_FILE"
 
+# capture the exit code from the docker run command above
+exit_code=$?
+
+# check the exit code and exit with non-zero if we failed
+if [ $exit_code -ne 0 ]; then
+    echo "Error: the run script for RTX-KG2 failed."
+    exit 1
+fi
+
 # build the docker image as a singularity image
 # docker run --platform $TARGET_PLATFORM \
 #     --volume $PWD/image:/image \
