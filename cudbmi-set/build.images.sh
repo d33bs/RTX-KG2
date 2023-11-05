@@ -72,20 +72,22 @@ docker save $TARGET_CUDBMI_TAG | gzip > $TARGET_DOCKER_IMAGE_FILEPATH
 
 # load the docker image
 docker load -i $TARGET_DOCKER_IMAGE_FILEPATH
+
 # run the docker image with the contents of the build.test.sh script
-# note: if we fail here we exit and do not proceed to build the singularity image
 BUILD_TEST_SH_FILE="/home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh"
-docker run --platform $TARGET_PLATFORM \
+docker run \
+    -v $PWD/cudbmi-set/kg2-build-logs:/home/ubuntu/kg2-build/logs \
+    --platform $TARGET_PLATFORM \
     $TARGET_CUDBMI_TAG \
     /bin/bash \
     -c "chmod +x $BUILD_TEST_SH_FILE && $BUILD_TEST_SH_FILE"
 
-# capture the exit code from the docker run command above
-exit_code=$?
-
-# check the exit code and exit with non-zero if we failed
-if [ $exit_code -ne 0 ]; then
-    echo "Error: the run script for RTX-KG2 failed."
+# seek success text in specific log file
+# note: if we fail here we exit and do not proceed to build the singularity image
+if grep -q "======= script finished ======" "/home/ubuntu/kg2-build-logs/setup-kg2-build.log"; then
+    echo "setup-kg2-build.sh finished successfully."
+else
+    echo "Error: setup-kg2-build.sh did not finish successfully."
     exit 1
 fi
 
