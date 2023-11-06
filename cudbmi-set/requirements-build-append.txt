@@ -1,0 +1,5 @@
+# requirements to be appended to requirements-kg2-build.txt
+# for correcting or amending the python build requirements
+markupsafe
+
+# begin kg2 python requirements here
