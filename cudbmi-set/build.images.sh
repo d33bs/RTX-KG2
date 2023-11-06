@@ -84,7 +84,7 @@ docker run \
 
 # seek success text in specific log file
 # note: if we fail here we exit and do not proceed to build the singularity image
-if grep -q "======= script finished ======" "/home/ubuntu/kg2-build-logs/setup-kg2-build.log"; then
+if grep -q "======= script finished ======" "$PWD/cudbmi-set/kg2-build-logs/setup-kg2-build.log"; then
     echo "setup-kg2-build.sh finished successfully."
 else
     echo "Error: setup-kg2-build.sh did not finish successfully."

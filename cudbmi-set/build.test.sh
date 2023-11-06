@@ -11,10 +11,12 @@ su - ubuntu
 # cd to the home dir for ubuntu user
 cd /home/ubuntu
 
-# run the build script
-bash -x /home/ubuntu/RTX-KG2/setup-kg2-build.sh
+# run the build script, continuing even if there are errors
+bash -e /home/ubuntu/RTX-KG2/setup-kg2-build.sh || true
 
-mkdir /home/ubuntu/kg2-build/logs
+# make the logs subdir so we may analyze the logs
+mkdir -p /home/ubuntu/kg2-build/logs
 
+# copy the logs from the build dir to the log sub dir
 cp /home/ubuntu/kg2-build/*.log /home/ubuntu/kg2-build/logs
 
