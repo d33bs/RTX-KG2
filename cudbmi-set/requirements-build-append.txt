@@ -4,4 +4,12 @@
 # markupsafe > v2.0.1 appears to cause errors on install as a dependency of Jinja and bmt
 markupsafe==2.0.1
 
+# bumped down to numpy 1.21 as Python 3.7 support was dropped in Numpy 1.22
+# https://numpy.org/devdocs/release/1.22.0-notes.html
+numpy==1.21
+
+# added for explicit installation reference alongside other deps.
+# should be installed earlier with build and local wheel reference
+pydantic-core==2.3.0
+
 # begin kg2 python requirements here
