@@ -20,3 +20,5 @@ snakemake-config.yaml
 **/.DS_store
 
 image/
+
+cudbmi-set/kg2-build-logs/

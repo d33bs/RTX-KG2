@@ -74,13 +74,12 @@ docker save $TARGET_CUDBMI_TAG | gzip > $TARGET_DOCKER_IMAGE_FILEPATH
 docker load -i $TARGET_DOCKER_IMAGE_FILEPATH
 
 # run the docker image with the contents of the build.test.sh script
-BUILD_TEST_SH_FILE="/home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh"
 docker run \
     -v $PWD/cudbmi-set/kg2-build-logs:/home/ubuntu/kg2-build/logs \
     --platform $TARGET_PLATFORM \
     $TARGET_CUDBMI_TAG \
     /bin/bash \
-    -c "chmod +x $BUILD_TEST_SH_FILE && $BUILD_TEST_SH_FILE"
+    -c "/home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh"
 
 # seek success text in specific log file
 # note: if we fail here we exit and do not proceed to build the singularity image

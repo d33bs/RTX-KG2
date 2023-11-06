@@ -10,5 +10,11 @@ RUN apt-get install -y screen --no-install-recommends
 # copy the contents of this repo to the container
 COPY . /home/ubuntu/RTX-KG2
 
+# prepare execution for build.test.sh file
+RUN chmod +x /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh
+
+# become ubuntu user on start
+USER ubuntu
+
 # make this container persistent
 CMD ["tail -f /dev/null"]

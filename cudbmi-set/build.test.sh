@@ -5,14 +5,11 @@
 # setting to exit the script on any failures
 set -e
 
-# switch user to ubuntu and run commands
-su - ubuntu
-
 # cd to the home dir for ubuntu user
 cd /home/ubuntu
 
 # run the build script, continuing even if there are errors
-bash -e /home/ubuntu/RTX-KG2/setup-kg2-build.sh || true
+sudo bash -x /home/ubuntu/RTX-KG2/setup-kg2-build.sh || true
 
 # make the logs subdir so we may analyze the logs
 mkdir -p /home/ubuntu/kg2-build/logs
