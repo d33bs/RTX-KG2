@@ -16,4 +16,3 @@ mkdir -p /home/ubuntu/kg2-build/logs
 
 # copy the logs from the build dir to the log sub dir
 cp /home/ubuntu/kg2-build/*.log /home/ubuntu/kg2-build/logs
-
