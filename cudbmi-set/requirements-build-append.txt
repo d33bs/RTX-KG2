@@ -1,10 +1,6 @@
 # requirements to be appended to requirements-kg2-build.txt
 # for correcting or amending the python build requirements
 
-# setuptools and pip update
-setuptools>=68.0.0
-pip>=9.0.1
-
 # markupsafe > v2.0.1 appears to cause errors on install as a dependency of Jinja and bmt
 markupsafe==2.0.1
 
