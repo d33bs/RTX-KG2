@@ -3,20 +3,9 @@ ARG IMAGE_REF=localhost:5000/kg2
 # hadolint ignore=DL3007
 FROM ${IMAGE_REF}:latest
 
-# Set default values for AWS CLI configuration
-ENV AWS_ACCESS_KEY_ID=
-ENV AWS_SECRET_ACCESS_KEY=
-ENV AWS_DEFAULT_REGION=
-ENV AWS_OUTPUT_FORMAT=
-
 # add additional apt dependencies
 # hadolint ignore=DL3008
 RUN apt-get install -y screen --no-install-recommends
-
-# Create credentials and and config file for AWS CLI
-RUN mkdir -p /root/.aws \
-    && echo -e "[default]\naws_access_key_id = $AWS_ACCESS_KEY_ID\naws_secret_access_key = $AWS_SECRET_ACCESS_KEY" > /root/.aws/credentials \
-    && echo -e "[default]\nregion = $AWS_DEFAULT_REGION\noutput = $AWS_OUTPUT_FORMAT" > /root/.aws/config
 
 # copy the contents of this repo to the container
 COPY . /home/ubuntu/RTX-KG2
