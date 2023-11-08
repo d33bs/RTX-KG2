@@ -7,6 +7,7 @@
 set -e
 
 # set env vars for use below
+export TARGET_VERSION="2023.11.08"
 export TARGET_PLATFORM=linux/amd64
 export TARGET_KG2_DOCKERFILE=./Dockerfile
 export TARGET_KG2_TAG=kg2
@@ -63,7 +64,7 @@ docker buildx build --network=host \
     --build-arg LOCAL_REGISTRY="localhost:5000" \
     --platform $TARGET_PLATFORM \
     -f $TARGET_CUDBMI_DOCKERFILE \
-    -t $TARGET_CUDBMI_TAG:latest \
+    -t $TARGET_CUDBMI_TAG:$TARGET_VERSION \
     . \
     --load
 
@@ -77,7 +78,7 @@ docker load -i $TARGET_DOCKER_IMAGE_FILEPATH
 docker run \
     -v $PWD/cudbmi-set/kg2-build-logs:/home/ubuntu/kg2-build/logs \
     --platform $TARGET_PLATFORM \
-    $TARGET_CUDBMI_TAG \
+    $TARGET_CUDBMI_TAG:$TARGET_VERSION \
     /bin/bash \
     -c "/home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh"
 
