@@ -1,3 +1,7 @@
+# set a version label
+LABEL version="2023.11.08"
+LABEL description="An extended Dockerfile for RTX-KG2 from CU DBMI SET."
+
 # to reference a local build of the kg2 image
 ARG IMAGE_REF=localhost:5000/kg2
 # hadolint ignore=DL3007
