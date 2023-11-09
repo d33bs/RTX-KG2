@@ -64,12 +64,12 @@ docker buildx build --network=host \
     --build-arg LOCAL_REGISTRY="localhost:5000" \
     --platform $TARGET_PLATFORM \
     -f $TARGET_CUDBMI_DOCKERFILE \
-    -t $TARGET_CUDBMI_TAG:$TARGET_VERSION \
+    -t $TARGET_CUDBMI_TAG:latest \
     . \
     --load
 
-# docker buildx build --platform $DOCKER_SINGULARITY_PLATFORM -t $TARGET_TAG . --load
-docker save $TARGET_CUDBMI_TAG | gzip > $TARGET_DOCKER_IMAGE_FILEPATH
+# save the docker image to tar.gz
+docker save $TARGET_CUDBMI_TAG:latest | gzip > $TARGET_DOCKER_IMAGE_FILEPATH
 
 # load the docker image
 docker load -i $TARGET_DOCKER_IMAGE_FILEPATH
@@ -78,11 +78,11 @@ docker load -i $TARGET_DOCKER_IMAGE_FILEPATH
 docker run \
     -v $PWD/cudbmi-set/kg2-build-logs:/home/ubuntu/kg2-build/logs \
     --platform $TARGET_PLATFORM \
-    $TARGET_CUDBMI_TAG:$TARGET_VERSION \
+    $TARGET_CUDBMI_TAG:latest \
     /bin/bash \
     -c "/home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh" || true
 
-# seek success text in specific log file
+# # seek success text in specific log file
 # note: if we fail here we exit and do not proceed to build the singularity image
 if grep -q "======= script finished ======" "$PWD/cudbmi-set/kg2-build-logs/setup-kg2-build.log"; then
     echo "setup-kg2-build.sh finished successfully."
