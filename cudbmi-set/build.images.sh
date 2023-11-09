@@ -80,7 +80,7 @@ docker run \
     --platform $TARGET_PLATFORM \
     $TARGET_CUDBMI_TAG:$TARGET_VERSION \
     /bin/bash \
-    -c "/home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh"
+    -c "/home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh" || true
 
 # seek success text in specific log file
 # note: if we fail here we exit and do not proceed to build the singularity image
@@ -92,9 +92,9 @@ else
 fi
 
 # build the docker image as a singularity image
-# docker run --platform $TARGET_PLATFORM \
-#     --volume $PWD/image:/image \
-#     --workdir /image \
-#     --privileged \
-#     quay.io/singularity/singularity:v4.0.1 \
-#     build $TARGET_SINGULARITY_IMAGE_FILENAME docker-archive://$TARGET_DOCKER_IMAGE_FILENAME
+docker run --platform $TARGET_PLATFORM \
+    --volume $PWD/image:/image \
+    --workdir /image \
+    --privileged \
+    quay.io/singularity/singularity:v4.0.1 \
+    build $TARGET_SINGULARITY_IMAGE_FILENAME docker-archive://$TARGET_DOCKER_IMAGE_FILENAME
