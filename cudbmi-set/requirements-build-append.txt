@@ -1,0 +1,11 @@
+# requirements to be appended to requirements-kg2-build.txt
+# for correcting or amending the python build requirements
+
+# markupsafe > v2.0.1 appears to cause errors on install as a dependency of Jinja and bmt
+markupsafe==2.0.1
+
+# added for explicit installation reference alongside other deps.
+# should be installed earlier with build and local wheel reference
+pydantic-core==2.3.0
+
+# begin kg2 python requirements here

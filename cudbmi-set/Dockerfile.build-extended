@@ -1,0 +1,25 @@
+# to reference a local build of the kg2 image
+ARG IMAGE_REF=localhost:5000/kg2
+# hadolint ignore=DL3007
+FROM ${IMAGE_REF}:latest
+
+# set version labels
+LABEL version="2023.11.08"
+LABEL description="An extended Dockerfile for RTX-KG2 from CU DBMI SET."
+LABEL org.opencontainers.image.source=https://github.com/CU-DBMI/RTX-KG2
+
+# add additional apt dependencies
+# hadolint ignore=DL3008
+RUN apt-get install -y screen --no-install-recommends
+
+# copy the contents of this repo to the container
+COPY . /home/ubuntu/RTX-KG2
+
+# prepare execution for build.test.sh file
+RUN chmod +x /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh
+
+# become ubuntu user on start
+USER ubuntu
+
+# make this container persistent
+CMD ["tail -f /dev/null"]

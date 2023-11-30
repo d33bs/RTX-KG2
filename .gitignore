@@ -18,3 +18,7 @@ snakemake-config.yaml
 
 # macOS finder folder-level attributes
 **/.DS_store
+
+/image/
+
+/cudbmi-set/kg2-build-logs/
