@@ -38,6 +38,9 @@ docker build \
     -t $TARGET_CUDBMI_TAG:latest \
     .
 
+# save the built docker image to tar.gz format
+docker save $TARGET_CUDBMI_TAG | gzip > ./image/$TARGET_DOCKER_IMAGE_FILENAME
+
 # run the docker image with the contents of the build.test.sh script
 docker run \
     -v $PWD/cudbmi-set/kg2-build-logs:/home/ubuntu/kg2-build/logs \
