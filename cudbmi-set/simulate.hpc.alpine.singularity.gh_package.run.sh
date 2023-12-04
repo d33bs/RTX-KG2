@@ -9,9 +9,8 @@ export TARGET_PLATFORM=linux/amd64
 # build the docker image as a singularity image
 docker run -it --platform $TARGET_PLATFORM \
     --volume $PWD:/rtx-kg2 \
-    --workdir /image \
     --privileged \
     quay.io/singularity/singularity:v4.0.1 \
     shell \
     --bind /rtx-kg2/cudbmi-set/kg2-build:/home/ubuntu/kg2-build \
-    /rtx-kg2/image/kg2-cudbmi-set_latest.sif
+    /rtx-kg2/image/kg2-cudbmi-set.sif
