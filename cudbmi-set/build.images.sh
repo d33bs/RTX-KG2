@@ -58,7 +58,7 @@ else
     exit 1
 fi
 
-if grep -q "======= script finished ======" "$PWD/cudbmi-set/kg2-build-logs/build-kg2-snakemake-n.log"; then
+if grep -q "================ script finished" "$PWD/cudbmi-set/kg2-build-logs/build-kg2-snakemake-n.log"; then
     echo "build-kg2-snakemake.sh finished successfully."
 else
     echo "Error: build-kg2-snakemake.sh did not finish successfully."
