@@ -22,3 +22,5 @@ snakemake-config.yaml
 /image/
 
 /cudbmi-set/kg2-build-logs/
+
+/cudbmi-set/data-staging/

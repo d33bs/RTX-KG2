@@ -199,6 +199,8 @@ For example: `Missing input files for rule UMLS_Conversion: /home/ubuntu/kg2-bui
 
 1. Add the following data to your RTX-KG2 repository under this directory: `RTX-KG2/cudbmi-set/data-staging`
   - [UMLS](https://www.nlm.nih.gov/research/umls/) [JSON lines](https://jsonlines.org/) data `umls.jsonl`
+    - This dataset is provided on a developer basis and must be requested using your personal credentials.
+    Dataset approval comes from external entities and may take days to complete (asking early is recommended!).
 
 #### Data builds
 
