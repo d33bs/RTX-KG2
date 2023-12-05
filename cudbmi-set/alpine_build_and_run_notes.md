@@ -158,9 +158,13 @@ This section describes how to create the dataset by running a container based on
 - __Data__:
   - pre-placed in related S3 buckets (referenced by `master-config.shinc` `s3_bucket`, `s3_bucket_public`, and
     `s3_bucket_versioned`):
-    - full
-      Unified Medical Language System (UMLS) distribution: `umls-2022AA-metathesaurus.zip` ([UMLS website](https://www.nlm.nih.gov/research/umls/))
+    - Full Unified Medical Language System (UMLS) distribution: `umls-2022AA-metathesaurus.zip` ([UMLS website](https://www.nlm.nih.gov/research/umls/))
+      - Link: [https://download.nlm.nih.gov/umls/kss/2023AA/umls-2023AA-metathesaurus-full.zip](https://download.nlm.nih.gov/umls/kss/2023AA/umls-2023AA-metathesaurus-full.zip)
+      - Note: 2022AA is referenced within the readme but 2023AA is referenced from `extract-umls.sh`.
     - DrugBank distribution (`drugbank.xml.gz`)
+      - Link: [https://go.drugbank.com/releases/latest](https://go.drugbank.com/releases/latest)
+      - Note: access approval must be requested individually using a personal account.
+        Access may take up to 5 business days for approval.
 - __Time duration__:
   - estimated to take 54-67 hours with Snakemake running on the built image
 - __Data result__:
@@ -199,7 +203,7 @@ For example: `Missing input files for rule UMLS_Conversion: /home/ubuntu/kg2-bui
 
 1. Add the following data to your RTX-KG2 repository under this directory: `RTX-KG2/cudbmi-set/data-staging`
   - [UMLS](https://www.nlm.nih.gov/research/umls/) [JSON lines](https://jsonlines.org/) data `umls.jsonl`
-    - This dataset is provided on a developer basis and must be requested using your personal credentials.
+    - This dataset is provided on a developer basis from the US National Library of Medicin (NLM) and must be requested using your personal credentials.
     Dataset approval comes from external entities and may take days to complete (asking early is recommended!).
 
 #### Data builds
@@ -213,7 +217,7 @@ These are color coded by intensity for reader convenience (more red means more s
     - `~/kg2-build/build-kg2-ont-test-stderr.log`
     - and all of the intermediate JSON and TSV files that the build system creates will have `-test` appended to the filename before the usual filename suffix (`.json`).
 
-- 🟧 __(Post Test Build) Partial Test Build__: `bash -x ~/kg2-code/build-kg2-snakemake.sh test`
+- 🟧 __(Post Test Build) Partial Build__: `bash -x ~/kg2-code/build-kg2-snakemake.sh test`
   - This option is frequently used in testing/development. Note, you have to have previously run an `alltest` build, or else a `test` build will not work.
 - Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
 

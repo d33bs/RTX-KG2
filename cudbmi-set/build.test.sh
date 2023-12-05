@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# used for testing Docker or Apptainer/Singularity images for kg2
+# used for preparing and testing Docker or Apptainer/Singularity images for kg2
 
 # setting to exit the script on any failures
 set -e
