@@ -29,8 +29,8 @@ sudo sed -i.bak '11s/.*/s3_cp_cmd="echo"/' /home/ubuntu/RTX-KG2/master-config.sh
 # run the build script, continuing even if there are errors
 sudo bash -x /home/ubuntu/RTX-KG2/setup-kg2-build.sh || true
 
-# run "dry-run" mode with snakemake script
-sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh all -F -n
+# run "dry-run" mode with snakemake script, continuing even if there are errors
+sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh all -F -n || true
 
 # make the logs subdir so we may analyze the logs
 mkdir -p /home/ubuntu/kg2-build/logs
