@@ -1,0 +1,3 @@
+# created to ignore various files during docker build procedures
+/cudbmi-set/data-staging/*.zip
+/image/*

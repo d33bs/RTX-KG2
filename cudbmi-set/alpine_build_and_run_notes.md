@@ -152,6 +152,9 @@ The following resources are suggested for building the image (and not creating t
 
 This section describes how to create the dataset by running a container based on the image built above.
 
+Broadly, this work takes place through the use of Bash scripts which leverage Snakemake and Python to accomplish various work.
+See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-ceba8500-bc83-11eb-8847-aad7f2edcb58.png) for a visual depiction of the DAG involved.
+
 - __Resources__:
   - 256 GiB of system memory
   - 1,023 GiB of disk space in the root file system
