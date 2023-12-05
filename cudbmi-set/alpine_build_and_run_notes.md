@@ -202,16 +202,20 @@ For example: `Missing input files for rule UMLS_Conversion: /home/ubuntu/kg2-bui
 
 #### Data builds
 
-- THIS STEP COMMENCES THE BUILD. 
-- Normal build: `sudo bash -x ~/kg2-code/build-kg2-snakemake.sh all -F`
-- Test build: `sudo bash -x ~/kg2-code/build-kg2-snakemake.sh alltest`
+Data builds may be performed in various test modes or as a "full / production" mode.
+These are color coded by intensity for reader convenience (more red means more serious and time-involved).
+
+- 🟨 __Test build__: `sudo bash -x ~/kg2-code/build-kg2-snakemake.sh alltest`
   - In the case of a test build, the a couple log file names are changed:
     - `~/kg2-build/build-kg2-snakemake-test.log`
     - `~/kg2-build/build-kg2-ont-test-stderr.log`
     - and all of the intermediate JSON and TSV files that the build system creates will have `-test` appended to the filename before the usual filename suffix (`.json`).
-- (Post Test Build) Partial Test Build: `bash -x ~/kg2-code/build-kg2-snakemake.sh test`
+
+- 🟧 __(Post Test Build) Partial Test Build__: `bash -x ~/kg2-code/build-kg2-snakemake.sh test`
   - This option is frequently used in testing/development. Note, you have to have previously run an `alltest` build, or else a `test` build will not work.
 - Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
+
+- 🟥 __Full/"production" build__: `sudo bash -x ~/kg2-code/build-kg2-snakemake.sh all -F`
 
 1. Data log validation:
 
