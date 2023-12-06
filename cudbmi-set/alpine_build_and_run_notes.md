@@ -157,7 +157,10 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
 
 - __Resources__:
   - 256 GiB of system memory
-  - 1,023 GiB of disk space in the root file system
+  - __Storage__
+    - Total: 1,023 GiB of disk space in the root file system
+    - UMLS source data, `umls-2023AA-metathesaurus-full.zip`: 3.9G compressed, ~27 GB uncompressed
+    - UMLS jsonl converted data `container:/home/ubuntu/kg2-build/umls.jsonl`: ?
 - __Data__:
   - pre-placed in related S3 buckets (referenced by `master-config.shinc` `s3_bucket`, `s3_bucket_public`, and
     `s3_bucket_versioned`):
