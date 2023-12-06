@@ -10,7 +10,7 @@ LABEL org.opencontainers.image.source=https://github.com/CU-DBMI/RTX-KG2
 
 # add additional apt dependencies
 # hadolint ignore=DL3008
-RUN apt-get install -y screen --no-install-recommends
+RUN apt-get install -y screen vim --no-install-recommends
 
 # copy the contents of this repo to the container
 COPY . /home/ubuntu/RTX-KG2
