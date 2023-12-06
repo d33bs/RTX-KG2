@@ -22,5 +22,11 @@ sudo cp /home/ubuntu/data-staging/umls-2023AA-metathesaurus-full.zip \
 # remove umls dir deletion line within extract-umls.sh
 sudo sed -i.bak '34s/.*/# removed line to avoid local umls dir usage /' /home/ubuntu/RTX-KG2/extract-umls.sh
 
-# run the build in test mode
+# run the extract-umls script manually to prepare data for the tests below
+sudo bash -x /home/ubuntu/kg2-code/extract-umls.sh
+
+# run the build in alltest mode
 sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh alltest
+
+# run the build in test mode (which depends on the alltest run above)
+sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh test

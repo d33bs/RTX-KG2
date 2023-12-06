@@ -220,7 +220,7 @@ These are color coded by intensity for reader convenience (more red means more s
     - `~/kg2-build/build-kg2-ont-test-stderr.log`
     - and all of the intermediate JSON and TSV files that the build system creates will have `-test` appended to the filename before the usual filename suffix (`.json`).
 
-- 🟧 __(Post Test Build) Partial Build__: `bash -x ~/kg2-code/build-kg2-snakemake.sh test`
+- 🟧 __(Post Test Build) Partial Build__: `sudo bash -x ~/kg2-code/build-kg2-snakemake.sh test`
   - This option is frequently used in testing/development. Note, you have to have previously run an `alltest` build, or else a `test` build will not work.
 - Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
 
