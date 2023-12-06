@@ -26,7 +26,7 @@ sudo sed -i.bak '34s/.*/# removed line to avoid local umls dir usage /' /home/ub
 sudo sed -i.bak '24s/.*/xml_filename=drugbank_all_full_database.xml.zip/' /home/ubuntu/RTX-KG2/extract-drugbank.sh
 
 # set unzip instead of gz uncompress for drugbank
-sudo sed -i.bak '27s/.*/unzip -p ${BUILD_DIR}/${xml_filename} > ${output_file}/' /home/ubuntu/RTX-KG2/extract-drugbank.sh
+sudo sed -i.bak '27s|.*|unzip -p ${BUILD_DIR}/${xml_filename} > ${output_file}|' /home/ubuntu/RTX-KG2/extract-drugbank.sh
 
 # run the extract-umls script manually to prepare data for the tests below
 sudo bash -x /home/ubuntu/kg2-code/extract-umls.sh
