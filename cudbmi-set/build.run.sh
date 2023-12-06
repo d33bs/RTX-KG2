@@ -22,6 +22,12 @@ sudo cp /home/ubuntu/data-staging/umls-2023AA-metathesaurus-full.zip \
 # remove umls dir deletion line within extract-umls.sh
 sudo sed -i.bak '34s/.*/# removed line to avoid local umls dir usage /' /home/ubuntu/RTX-KG2/extract-umls.sh
 
+# set name for drugbank dataset based on newly downloaded data
+sudo sed -i.bak '24s/.*/xml_filename=drugbank_all_full_database.xml.zip/' /home/ubuntu/RTX-KG2/extract-drugbank.sh
+
+# set unzip instead of gz uncompress for drugbank
+sudo sed -i.bak '27s/.*/unzip -p ${BUILD_DIR}/${xml_filename} > ${output_file}/' /home/ubuntu/RTX-KG2/extract-drugbank.sh
+
 # run the extract-umls script manually to prepare data for the tests below
 sudo bash -x /home/ubuntu/kg2-code/extract-umls.sh
 
