@@ -208,8 +208,9 @@ If this data is not present, you may see errors when running the snakemake scrip
 For example: `Missing input files for rule UMLS_Conversion: /home/ubuntu/kg2-build/umls.jsonl`.
 
 1. Add the following data to your RTX-KG2 repository under this directory: `RTX-KG2/cudbmi-set/data-staging`
-  - [UMLS](https://www.nlm.nih.gov/research/umls/) [JSON lines](https://jsonlines.org/) data `umls.jsonl`
-    - This dataset is provided on a developer basis from the US National Library of Medicin (NLM) and must be requested using your personal credentials.
+
+- [UMLS](https://www.nlm.nih.gov/research/umls/) [JSON lines](https://jsonlines.org/) data `umls.jsonl`
+  - This dataset is provided on a developer basis from the US National Library of Medicin (NLM) and must be requested using your personal credentials.
     Dataset approval comes from external entities and may take days to complete (asking early is recommended!).
 
 #### Data builds
@@ -218,13 +219,16 @@ Data builds may be performed in various test modes or as a "full / production" m
 These are color coded by intensity for reader convenience (more red means more serious and time-involved).
 
 - 🟨 __Test build__: `sudo bash -x ~/kg2-code/build-kg2-snakemake.sh alltest`
+
   - In the case of a test build, the a couple log file names are changed:
     - `~/kg2-build/build-kg2-snakemake-test.log`
     - `~/kg2-build/build-kg2-ont-test-stderr.log`
     - and all of the intermediate JSON and TSV files that the build system creates will have `-test` appended to the filename before the usual filename suffix (`.json`).
 
 - 🟧 __(Post Test Build) Partial Build__: `sudo bash -x ~/kg2-code/build-kg2-snakemake.sh test`
+
   - This option is frequently used in testing/development. Note, you have to have previously run an `alltest` build, or else a `test` build will not work.
+
 - Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
 
 - 🟥 __Full/"production" build__: `sudo bash -x ~/kg2-code/build-kg2-snakemake.sh all -F`

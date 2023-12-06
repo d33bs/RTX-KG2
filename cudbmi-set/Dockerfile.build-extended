@@ -15,11 +15,9 @@ RUN apt-get install -y screen vim --no-install-recommends
 # copy the contents of this repo to the container
 COPY . /home/ubuntu/RTX-KG2
 
-# prepare execution for build.test.sh file
-RUN chmod +x /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh
-
-# prepare execution for build.run.sh file
-RUN chmod +x /home/ubuntu/RTX-KG2/cudbmi-set/build.run.sh
+# prepare execution for build.*.sh files
+RUN chmod +x /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh && \
+    chmod +x /home/ubuntu/RTX-KG2/cudbmi-set/build.run.sh
 
 # prepare a data staging location within the image
 RUN mkdir -p /home/ubuntu/data-staging

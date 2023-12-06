@@ -28,4 +28,4 @@ singularity pull \
 # Run the Singularity container
 singularity run \
     --bind $KG2_LOCAL_BUILD_DIR:/home/ubuntu/kg2-build \
-    kg2-cudbmi-set_latest.sif 
+    kg2-cudbmi-set_latest.sif
