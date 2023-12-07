@@ -7,7 +7,7 @@
 set -e
 
 # set env vars for use below
-export TARGET_VERSION="2023.11.08"
+export TARGET_VERSION="2023.12.07"
 export TARGET_PLATFORM=linux/amd64
 export TARGET_KG2_DOCKERFILE=./Dockerfile
 export TARGET_KG2_TAG=kg2

@@ -4,7 +4,7 @@ ARG IMAGE_REF=localhost:5000/kg2
 FROM ${IMAGE_REF}:latest
 
 # set version labels
-LABEL version="2023.11.08"
+LABEL version="2023.12.07"
 LABEL description="An extended Dockerfile for RTX-KG2 from CU DBMI SET."
 LABEL org.opencontainers.image.source=https://github.com/CU-DBMI/RTX-KG2
 
