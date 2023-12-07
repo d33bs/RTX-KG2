@@ -19,8 +19,9 @@ COPY . /home/ubuntu/RTX-KG2
 RUN chmod +x /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh && \
     chmod +x /home/ubuntu/RTX-KG2/cudbmi-set/build.run.sh
 
-# prepare a data staging location within the image
-RUN mkdir -p /home/ubuntu/data-staging
+# prepare various dirs within the image
+RUN mkdir -p /home/ubuntu/data-staging \
+    /home/ubuntu/kg2-build/logs
 
 # become ubuntu user on start
 USER ubuntu
