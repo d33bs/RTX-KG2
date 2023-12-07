@@ -171,6 +171,7 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
       - Link: [https://go.drugbank.com/releases/latest](https://go.drugbank.com/releases/latest)
       - Note: access approval must be requested individually using a personal account.
         Access may take up to 5 business days for approval.
+      - Note: Changes must be made to `/home/ubuntu/RTX-KG2/extract-drugbank.sh` in order to properly handle the current download from Drugbank, which is a zip: `drugbank_all_full_database.xml.zip`. These changes may be found within `cudbmi-set/build.run.sh`.
 - __Time duration__:
   - estimated to take 54-67 hours with Snakemake running on the built image
 - __Data result__:
