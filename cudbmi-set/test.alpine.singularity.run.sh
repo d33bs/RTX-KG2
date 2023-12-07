@@ -19,6 +19,9 @@ squeue -u $USER
 # load singularity 3.7.4 (or latest available)
 module load singularity/3.7.4
 
+# set our singularity cache to the projects dir
+export SINGULARITY_CACHEDIR=/projects/$USER
+
 # create a testing dir with associated log dir
 mkdir -p /projects/$USER/rtx-kg2-testing/kg2-build-logs
 
