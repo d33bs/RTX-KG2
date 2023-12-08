@@ -37,3 +37,4 @@ curl -OJL https://github.com/CU-DBMI/RTX-KG2/releases/download/v2023.12.07/kg2-c
 #     --bind /projects/$USER/rtx-kg2-data-staging:/home/ubuntu/data-staging \
 #     kg2-cudbmi-set.sif
 
+singularity shell --containall --cleanenv --no-home --fakeroot kg2-cudbmi-set.sif
