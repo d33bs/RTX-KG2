@@ -7,6 +7,7 @@
 # see Lima project more details: https://github.com/lima-vm/lima
 
 # presumes an existing installation of lima
+# note: we explicitly call x86_64 arch to avoid arm-based implementation on Apple Silicon
 limactl start --vm-type=qemu --arch=x86_64 template://ubuntu-lts
 
 # enter the shell of the ubuntu-lts instance
