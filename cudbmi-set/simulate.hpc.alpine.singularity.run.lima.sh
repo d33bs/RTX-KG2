@@ -24,3 +24,12 @@ apptainer exec docker://alpine cat /etc/alpine-release
 
 # show the apptainer build configuration
 apptainer buildcfg
+
+# cd to the image dir within local RTX-KG2 repository with pre-built images
+cd image
+
+# run the image through lima ubuntu LTS apptainer
+apptainer shell --containall --cleanenv --fakeroot --writable-tmpfs kg2-cudbmi-set.sif
+
+# run the build.run.sh script from /home/ubuntu within the container
+/home/ubuntu/RTX-KG2/cudbmi-set/build.run.sh
