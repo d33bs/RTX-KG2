@@ -33,7 +33,7 @@ sudo bash -x /home/ubuntu/RTX-KG2/setup-kg2-build.sh || true
 sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh all -F -n || true
 
 # make the logs subdir so we may analyze the logs
-mkdir -p /home/ubuntu/kg2-build/logs
+sudo mkdir -p /home/ubuntu/kg2-build/logs
 
 # copy the logs from the build dir to the log sub dir
-cp /home/ubuntu/kg2-build/*.log /home/ubuntu/kg2-build/logs
+sudo cp /home/ubuntu/kg2-build/*.log /home/ubuntu/kg2-build/logs

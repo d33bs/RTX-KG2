@@ -14,6 +14,7 @@ export RTXKG2_DATA_DIR=/mnt/disks/rtx-kg2-data
 
 # make a log dir
 mkdir -p $RTXKG2_DATA_DIR/kg2-build-logs
+mkdir -p $RTXKG2_DATA_DIR/kg2-build
 
 # change dir to the data dir
 cd $RTXKG2_DATA_DIR
@@ -22,11 +23,12 @@ cd $RTXKG2_DATA_DIR
 curl -OJL https://github.com/CU-DBMI/RTX-KG2/releases/download/v2023.12.07/kg2-cudbmi-set.tar.gz
 
 # load image into docker
-docker import kg2-cudbmi-set.tar.gz
+gunzip -c kg2-cudbmi-set.tar.gz | docker load
 
 # run the docker image with the mapped volumes as references
 docker run -it --platform $TARGET_PLATFORM \
     -v $PWD/kg2-build-logs:/home/ubuntu/kg2-build/logs \
     -v $PWD/data-staging:/home/ubuntu/data-staging \
+    -v $PWD/kg2-build:/home/ubuntu/kg2-build \
     $TARGET_CUDBMI_TAG:latest \
     /bin/bash

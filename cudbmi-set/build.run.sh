@@ -10,7 +10,7 @@ set -e
 cd /home/ubuntu
 
 # run the build.test.sh script to prepare things
-source /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh
+sudo bash -x /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh
 
 # prepare a place for the umls data to land
 sudo mkdir -p /home/ubuntu/kg2-build/umls
