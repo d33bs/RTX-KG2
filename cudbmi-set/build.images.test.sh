@@ -41,6 +41,30 @@ docker build \
 # save the built docker image to tar.gz format
 docker save $TARGET_CUDBMI_TAG | gzip > ./image/$TARGET_DOCKER_IMAGE_FILENAME
 
+# run the docker image with the contents of the build.test.sh script
+docker run \
+    -v $PWD/cudbmi-set/kg2-build-logs:/opt/rtx-kg2-noroot/kg2-build/logs \
+    --platform $TARGET_PLATFORM \
+    $TARGET_CUDBMI_TAG:latest \
+    /bin/bash \
+    -c "/opt/rtx-kg2-noroot/cudbmi-set/build.test.sh" || true
+
+# seek success text in specific log files
+# note: if we fail here we exit and do not proceed to build the singularity image
+if grep -q "======= script finished ======" "$PWD/cudbmi-set/kg2-build-logs/setup-kg2-build.log"; then
+    echo "setup-kg2-build.sh finished successfully."
+else
+    echo "Error: setup-kg2-build.sh did not finish successfully."
+    exit 1
+fi
+
+if grep -q "================ script finished" "$PWD/cudbmi-set/kg2-build-logs/build-kg2-snakemake-n.log"; then
+    echo "build-kg2-snakemake.sh finished successfully."
+else
+    echo "Error: build-kg2-snakemake.sh did not finish successfully."
+    exit 1
+fi
+
 # build the docker image as a singularity image
 docker run --platform $TARGET_PLATFORM \
     --volume $PWD/image:/image \
