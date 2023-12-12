@@ -5,6 +5,9 @@
 # note: this work expects that data transfer for UMLS and Drugbank data
 # have been prepared on HPC Alpine under /projects/$USER/rtx-kg2-data-staging
 
+# note: presumes the docker daemon has access to large file storage via --data-root
+# option usage pointed to VM mount with large storage.
+
 # setting to exit the script on any failures
 set -e
 
