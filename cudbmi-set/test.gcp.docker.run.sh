@@ -18,6 +18,7 @@ export RTXKG2_DATA_DIR=/mnt/disks/rtx-kg2-data
 # make a log dir
 mkdir -p $RTXKG2_DATA_DIR/kg2-build-logs
 mkdir -p $RTXKG2_DATA_DIR/kg2-build
+mkdir -p $RTXKG2_DATA_DIR/docker-data-root
 
 # change dir to the data dir
 cd $RTXKG2_DATA_DIR

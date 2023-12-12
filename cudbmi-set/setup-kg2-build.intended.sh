@@ -162,6 +162,9 @@ host = localhost
 skip-log-bin
 EOF
 
+    # append additional configuration for mysql
+    cat /home/ubuntu/RTX-KG2/cudbmi-set/my.cnf.append.conf >> ${mysql_conf}
+
     ## set mysql server variable to allow loading data from a local file
     mysql --defaults-extra-file=${mysql_conf} \
           -e "set global local_infile=1"
