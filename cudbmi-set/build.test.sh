@@ -15,9 +15,8 @@ cd /home/ubuntu
 # - replace archived postgres apt link in setup file
 #   - see: https://www.postgresql.org/message-id/ZN4OigxPJA236qlg%40msg.df7cb.de
 # - start postgresql service in order to run subsequent commands
-(sudo diff -u /home/ubuntu/RTX-KG2/setup-kg2-build.sh \
-    /home/ubuntu/RTX-KG2/cudbmi-set/setup-kg2-build.intended.sh ) > \
-    /home/ubuntu/RTX-KG2/cudbmi-set/setup-kg2-build.intended.sh.patch
+sudo chmod +w /home/ubuntu/RTX-KG2/cudbmi-set/
+sudo diff -u /home/ubuntu/RTX-KG2/setup-kg2-build.sh /home/ubuntu/RTX-KG2/cudbmi-set/setup-kg2-build.intended.sh | sudo tee /home/ubuntu/RTX-KG2/cudbmi-set/setup-kg2-build.intended.sh.patch > /dev/null
 sudo patch -p1 /home/ubuntu/RTX-KG2/setup-kg2-build.sh \
     /home/ubuntu/RTX-KG2/cudbmi-set/setup-kg2-build.intended.sh.patch
 
