@@ -29,6 +29,10 @@ curl -OJL https://github.com/CU-DBMI/RTX-KG2/releases/download/v2023.12.07/kg2-c
 # load image into docker
 gunzip -c kg2-cudbmi-set.tar.gz | docker load
 
+# clear previous work to avoid collisions
+sudo rm -rf $RTXKG2_DATA_DIR/kg2-build-logs
+sudo rm -rf $RTXKG2_DATA_DIR/kg2-build
+
 # run the docker image with the mapped volumes as references
 docker run -it --platform $TARGET_PLATFORM \
     -v $PWD/kg2-build-logs:/home/ubuntu/kg2-build/logs \
