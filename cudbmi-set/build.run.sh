@@ -29,6 +29,7 @@ sudo sed -i.bak '24s/.*/xml_filename=drugbank_all_full_database.xml.zip/' /home/
 sudo sed -i.bak '27s|.*|unzip -p ${BUILD_DIR}/${xml_filename} > ${output_file}|' /home/ubuntu/RTX-KG2/extract-drugbank.sh
 
 # run the extract-umls script manually to prepare data for the tests below
+# rough benchmark: this step can take a while, roughly 5 hours with 32GB of memory
 sudo bash -x /home/ubuntu/kg2-code/extract-umls.sh
 
 # run the build in alltest mode
