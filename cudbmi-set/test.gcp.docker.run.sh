@@ -23,12 +23,6 @@ mkdir -p $RTXKG2_DATA_DIR/docker-data-root
 # change dir to the data dir
 cd $RTXKG2_DATA_DIR
 
-# download sif file for singularity
-curl -OJL https://github.com/CU-DBMI/RTX-KG2/releases/download/v2023.12.07/kg2-cudbmi-set.tar.gz
-
-# load image into docker
-gunzip -c kg2-cudbmi-set.tar.gz | docker load
-
 # clear previous work to avoid collisions
 sudo rm -rf $RTXKG2_DATA_DIR/kg2-build-logs/*
 sudo rm -rf $RTXKG2_DATA_DIR/kg2-build/*
