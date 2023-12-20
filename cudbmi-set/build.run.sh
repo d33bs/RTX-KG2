@@ -47,5 +47,5 @@ sudo sed -i.bak '48 s|psql -U|sudo -u ubuntu psql -U|' /home/ubuntu/RTX-KG2/extr
 # run the build in test mode (which depends on the alltest run above)
 # sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh test
 
-# full run of the build afte rthe alltest and test runs
+# full run of the build after the alltest and test runs
 sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh all -F
