@@ -164,6 +164,8 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
     - DrugBank Zip: `/home/ubuntu/data-staging/drugbank.xml.zip`: 150M
     - DrugBank XML `/home/ubuntu/kg2-build/drugbank.xml`: 1.5G
     - SemMedDB: `/home/ubuntu/kg2-build/semmedVER43_2023_R_WHOLEDB.tar.gz`:
+    - DGIdb: `/home/ubuntu/kg2-build/interactions.tsv`: 9.1 MB
+    - DrugCentral: `/home/ubuntu/kg2-build/drugcentral.dump.11012023.sql.gz`: 1.3 GB
 - __Data__:
   - pre-placed in related S3 buckets (referenced by `master-config.shinc` `s3_bucket`, `s3_bucket_public`, and
     `s3_bucket_versioned`):
@@ -179,6 +181,11 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
       - Link: [https://lhncbc.nlm.nih.gov/ii/tools/SemRep_SemMedDB_SKR/SemMedDB_download.html](https://lhncbc.nlm.nih.gov/ii/tools/SemRep_SemMedDB_SKR/SemMedDB_download.html)
       - Note: access approval is performed through UMLS access mentioned above.
       - Note: changes must be made to collect the individual downloads on the link above into a `.tar.gz` in order for the RTX-KG2 step(s) to complete successfully.
+    - DGIdb: (`interactions.tsv`)
+      - Link: [https://www.dgidb.org/data/2023-Dec/interactions.tsv](https://www.dgidb.org/data/2023-Dec/interactions.tsv)
+    - DrugCentral: (`drugcentral.dump.11012023.sql.gz`)
+      - Link: [https://unmtid-shinyapps.net/download/drugcentral.dump.11012023.sql.gz](https://unmtid-shinyapps.net/download/drugcentral.dump.11012023.sql.gz)
+      - Note: earlier download links might have been disabled?
 - __Time duration__:
   - estimated to take 54-67 hours with Snakemake running on the built image
 - __Data result__:
