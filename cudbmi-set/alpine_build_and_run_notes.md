@@ -158,9 +158,12 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
 - __Resources__:
   - 256 GiB of system memory
   - __Storage__
-    - Total: 1,023 GiB of disk space in the root file system
+    - Total: 1,023 GiB (~1 TB) of disk space in the root file system
     - UMLS source data, `umls-2023AA-metathesaurus-full.zip`: 3.9G compressed, ~27 GB uncompressed
-    - UMLS jsonl converted data `container:/home/ubuntu/kg2-build/umls.jsonl`: ?
+    - UMLS jsonl converted data `container:/home/ubuntu/kg2-build/umls.jsonl`: 3.8G
+    - DrugBank Zip: `/home/ubuntu/data-staging/drugbank.xml.zip`: 150M
+    - DrugBank XML `/home/ubuntu/kg2-build/drugbank.xml`: 1.5G
+    - SemMedDB: `/home/ubuntu/kg2-build/semmedVER43_2023_R_WHOLEDB.tar.gz`:
 - __Data__:
   - pre-placed in related S3 buckets (referenced by `master-config.shinc` `s3_bucket`, `s3_bucket_public`, and
     `s3_bucket_versioned`):
@@ -172,6 +175,10 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
       - Note: access approval must be requested individually using a personal account.
         Access may take up to 5 business days for approval.
       - Note: Changes must be made to `/home/ubuntu/RTX-KG2/extract-drugbank.sh` in order to properly handle the current download from Drugbank, which is a zip: `drugbank_all_full_database.xml.zip`. These changes may be found within `cudbmi-set/build.run.sh`.
+    - SemMedDB: (`semmedVER43_2023_R_WHOLEDB.tar.gz`)
+      - Link: [https://lhncbc.nlm.nih.gov/ii/tools/SemRep_SemMedDB_SKR/SemMedDB_download.html](https://lhncbc.nlm.nih.gov/ii/tools/SemRep_SemMedDB_SKR/SemMedDB_download.html)
+      - Note: access approval is performed through UMLS access mentioned above.
+      - Note: changes must be made to collect the individual downloads on the link above into a `.tar.gz` in order for the RTX-KG2 step(s) to complete successfully.
 - __Time duration__:
   - estimated to take 54-67 hours with Snakemake running on the built image
 - __Data result__:
