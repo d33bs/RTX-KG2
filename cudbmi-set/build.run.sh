@@ -37,6 +37,9 @@ sudo tar -czvf \
 sudo sed -i.bak '28s|.*|# ${curl_get} ${dgidb_url} > /tmp/${dgidb_file}|' /home/ubuntu/RTX-KG2/extract-dgidb.sh
 sudo cp /home/ubuntu/data-staging/interactions.tsv /tmp/interactions.tsv
 
+# provide static user context for postgres and drugcentral work (avoid sudo context challenges)
+sudo sed -i.bak '48 s|psql -U|sudo -u ubuntu psql -U|' /home/ubuntu/RTX-KG2/extract-drugcentral.sh
+
 # run the build in alltest mode
 sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh alltest
 
