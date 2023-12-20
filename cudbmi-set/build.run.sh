@@ -33,6 +33,10 @@ sudo tar -czvf \
     /home/ubuntu/kg2-build/semmeddb/semmedVER43_2023_R_WHOLEDB.tar.gz \
     /home/ubuntu/data-staging/semmedVER43_2023_R_*
 
+# avoid errors with dgidb and rely on pre-prepared data transfer
+sudo sed -i.bak '28s|.*|# ${curl_get} ${dgidb_url} > /tmp/${dgidb_file}|' /home/ubuntu/RTX-KG2/extract-dgidb.sh
+sudo cp /home/ubuntu/data-staging/interactions.tsv /tmp/interactions.tsv
+
 # run the build in alltest mode
 sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh alltest
 
