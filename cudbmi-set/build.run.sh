@@ -28,6 +28,11 @@ sudo sed -i.bak '24s/.*/xml_filename=drugbank_all_full_database.xml.zip/' /home/
 # set unzip instead of gz uncompress for drugbank
 sudo sed -i.bak '27s#.*#unzip -p /home/ubuntu/data-staging/${xml_filename} | sudo tee ${output_file} > /dev/null #' /home/ubuntu/RTX-KG2/extract-drugbank.sh
 
+# prepare the semmeddb tar.gz file from source table files to remain compatible with extract-semmeddb.sh
+sudo tar -czvf \
+    /home/ubuntu/kg2-build/semmeddb/semmedVER43_2023_R_WHOLEDB.tar.gz \
+    /home/ubuntu/data-staging/semmedVER43_2023_R_*
+
 # run the build in alltest mode
 sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh alltest
 
