@@ -156,6 +156,7 @@ Broadly, this work takes place through the use of Bash scripts which leverage Sn
 See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-ceba8500-bc83-11eb-8847-aad7f2edcb58.png) for a visual depiction of the DAG involved.
 
 - __Resources__:
+
   - 256 GiB of system memory
   - __Storage__
     - Total: 1,023 GiB (~1 TB) of disk space in the root file system
@@ -165,7 +166,9 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
     - DrugBank XML `/home/ubuntu/kg2-build/drugbank.xml`: 1.5G
     - SemMedDB: `/home/ubuntu/kg2-build/semmeddb/semmedVER43_2023_R_WHOLEDB.tar.gz`:
     - DGIdb: `/home/ubuntu/kg2-build/dgidb/interactions.tsv`: 9.1 MB
+
 - __Data__:
+
   - pre-placed in related S3 buckets (referenced by `master-config.shinc` `s3_bucket`, `s3_bucket_public`, and
     `s3_bucket_versioned`):
     - Full Unified Medical Language System (UMLS) distribution: `umls-2022AA-metathesaurus.zip` ([UMLS website](https://www.nlm.nih.gov/research/umls/))
@@ -185,8 +188,11 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
       - Note: this data is prepared manually to avoid issues with HTML parsing.
 
 - __Time duration__:
+
   - estimated to take 54-67 hours with Snakemake running on the built image
+
 - __Data result__:
+
   - `kg2-simplified.json.gz`
   - Each build of KG2 is labeled with a unique build date/timestamp. The build timestamp can be found in the `build` slot of the `kg2-simplified.json` file and it can be found in the node with ID `RTX:KG2` in the Neo4j KG2 database.
   - Viewing progress: `tail -f ~/kg2-build/build-kg2-snakemake.log`
