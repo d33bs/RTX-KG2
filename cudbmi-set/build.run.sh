@@ -12,10 +12,6 @@ cd /home/ubuntu
 # run the build.test.sh script to prepare things
 sudo bash -x /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh
 
-# prepare build dir permissions
-sudo chown root:ubuntu /home/ubuntu/kg2-build
-sudo chmod 775 /home/ubuntu/kg2-build
-
 # prepare a place for the umls data to land
 sudo mkdir -p /home/ubuntu/kg2-build/umls
 
@@ -45,7 +41,7 @@ sudo cp /home/ubuntu/data-staging/interactions.tsv /tmp/interactions.tsv
 # provide static user context for postgres and drugcentral work (avoid sudo context challenges)
 sudo sed -i.bak '48 s|psql -U|sudo -u ubuntu psql -U|' /home/ubuntu/RTX-KG2/extract-drugcentral.sh
 # change the path of psql output to avoid root/ubuntu permission issues (and downstream permission change issues)
-sudo sed -i.bak '27s|.*|sudo chown root:ubuntu ${drugcentral_dir} && sudo chmod 775 ${drugcentral_dir}|' /home/ubuntu/RTX-KG2/extract-drugcentral.sh
+sudo sed -i.bak '27s|.*|sudo chown root:ubuntu ${drugcentral_dir} \&\& sudo chmod 775 ${drugcentral_dir}|' /home/ubuntu/RTX-KG2/extract-drugcentral.sh
 
 # run the build in alltest mode
 # sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh alltest
