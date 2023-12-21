@@ -30,11 +30,14 @@ sudo sed -i.bak '27s#.*#unzip -p /home/ubuntu/data-staging/${xml_filename} | sud
 
 # prepare the semmeddb tar.gz file from source table files to remain compatible with extract-semmeddb.sh
 sudo mkdir -p /home/ubuntu/kg2-build/semmeddb
-sudo tar -czvf \
-    /home/ubuntu/kg2-build/semmeddb/semmedVER43_2023_R_WHOLEDB.tar.gz \
-    /home/ubuntu/data-staging/semmedVER43_2023_R_*
+sudo cp /home/ubuntu/data-staging/semmeddb/* /home/ubuntu/kg2-build/semmeddb
+sudo sed -i.bak '54s|.*|# commented out to avoid issues|' /home/ubuntu/RTX-KG2/extract-semmeddb.sh
+sudo sed -i.bak '55s|.*|# commented out to avoid issues|' /home/ubuntu/RTX-KG2/extract-semmeddb.sh
 
 # avoid errors with dgidb and rely on pre-prepared data transfer
+sudo sed -i.bak '24s|.*|# commented out to avoid issues|' /home/ubuntu/RTX-KG2/extract-dgidb.sh
+sudo sed -i.bak '25s|.*|update_date=$(date +"%Y%m%d_%H%M%S")|' /home/ubuntu/RTX-KG2/extract-dgidb.sh
+sudo sed -i.bak '26s|.*|# commented out to avoid issues|' /home/ubuntu/RTX-KG2/extract-dgidb.sh
 sudo sed -i.bak '28s|.*|# ${curl_get} ${dgidb_url} > /tmp/${dgidb_file}|' /home/ubuntu/RTX-KG2/extract-dgidb.sh
 sudo cp /home/ubuntu/data-staging/interactions.tsv /tmp/interactions.tsv
 
