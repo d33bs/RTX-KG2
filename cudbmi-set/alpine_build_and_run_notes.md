@@ -167,6 +167,11 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
     - SemMedDB: `/home/ubuntu/kg2-build/semmeddb/semmedVER43_2023_R_WHOLEDB.tar.gz`:
     - DGIdb: `/home/ubuntu/kg2-build/dgidb/interactions.tsv`: 9.1 MB
 
+  - Notes:
+    - DBMI SET attempts with VM's took place on Google Cloud.
+      See the following documentation for more information regarding [VM resource specifications](https://cloud.google.com/compute/all-pricing).
+    - Attempting with GC e2-standard-8 encountered what looked like a memory lock-up (complete system frozen).
+
 - __Data__:
 
   - pre-placed in related S3 buckets (referenced by `master-config.shinc` `s3_bucket`, `s3_bucket_public`, and

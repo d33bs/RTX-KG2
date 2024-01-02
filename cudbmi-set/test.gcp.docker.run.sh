@@ -34,3 +34,6 @@ docker run -it --platform $TARGET_PLATFORM \
     -v $PWD/kg2-build:/home/ubuntu/kg2-build \
     $TARGET_CUDBMI_TAG:latest \
     /bin/bash
+
+# run the following script from within the interactive session:
+# /home/ubuntu/RTX-KG2/cudbmi-set/build.run.sh
