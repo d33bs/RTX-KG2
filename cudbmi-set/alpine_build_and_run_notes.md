@@ -171,6 +171,7 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
     - DBMI SET attempts with VM's took place on Google Cloud.
       See the following documentation for more information regarding [VM resource specifications](https://cloud.google.com/compute/all-pricing).
     - Attempting with GC e2-standard-8 encountered what looked like a memory lock-up (complete system frozen).
+    - Attempting with GC e2-standard-32 showed ~32% memory usage (with failures)
 
 - __Data__:
 
