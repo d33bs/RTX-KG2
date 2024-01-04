@@ -190,7 +190,8 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
       - Note: access approval is performed through UMLS access mentioned above.
       - Note: changes must be made to collect the individual downloads on the link above into a `.tar.gz` in order for the RTX-KG2 step(s) to complete successfully.
     - DGIdb: (`interactions.tsv`)
-      - Link: [https://www.dgidb.org/data/2023-Dec/interactions.tsv](https://www.dgidb.org/data/2023-Dec/interactions.tsv)
+      - Link: [https://old.dgidb.org/data/monthly_tsvs/2022-Feb/interactions.tsv](https://old.dgidb.org/data/monthly_tsvs/2022-Feb/interactions.tsv)
+      - Note: this data must be gathered from the "old" domain because the new schema does not match what is implemented within `dgidb_tsv_to_kg_jsonl.py`.
       - Note: this data is prepared manually to avoid issues with HTML parsing.
 
 - __Time duration__:
