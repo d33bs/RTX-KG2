@@ -27,6 +27,9 @@ cd $RTXKG2_DATA_DIR
 sudo rm -rf $RTXKG2_DATA_DIR/kg2-build-logs/*
 sudo rm -rf $RTXKG2_DATA_DIR/kg2-build/*
 
+# clean up docker system for storage space
+docker system prune -f
+
 # run the docker image with the mapped volumes as references
 docker run -it --platform $TARGET_PLATFORM \
     -v $PWD/kg2-build-logs:/home/ubuntu/kg2-build/logs \
