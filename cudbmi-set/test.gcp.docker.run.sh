@@ -40,3 +40,7 @@ docker run -it --platform $TARGET_PLATFORM \
 
 # run the following script from within the interactive session:
 # /home/ubuntu/RTX-KG2/cudbmi-set/build.run.sh
+
+# log into running container from another session
+# docker container list
+# docker exec -it <container_id_or_name> /bin/bash
