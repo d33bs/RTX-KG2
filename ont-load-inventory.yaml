@@ -48,11 +48,22 @@
   file: cl.owl
   download: true
   title: Cell Ontology
+# Commented due to owlapi / owltools errors with conversions and object types.
+# Replaced by FOODON base below in reference to RTXteam/RTX-KG2#300
+# See: 
+# - https://github.com/RTXteam/RTX-KG2/issues/303
+# - https://github.com/FoodOntology/foodon/issues/277
+#
+#-
+#   url: http://purl.obolibrary.org/obo/foodon.owl 
+#   file: foodon.owl
+#   download: true
+#   title: FOODON (Food Ontology)
 -
-  url: http://purl.obolibrary.org/obo/foodon.owl 
-  file: foodon.owl
+  url: https://raw.githubusercontent.com/FoodOntology/foodon/master/foodon-base.owl
+  file: foodon-base.owl
   download: true
-  title: FOODON (Food Ontology)
+  title: FOODON (Food Ontology) Base
 -
   url: https://data.bioontology.org/ontologies/ORDO/submissions/27/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb
   file: ordo.owl
