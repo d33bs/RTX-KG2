@@ -31,6 +31,7 @@ sudo rm -rf $RTXKG2_DATA_DIR/kg2-build/*
 docker system prune -f
 
 # run the docker image with the mapped volumes as references
+cd $RTXKG2_DATA_DIR
 docker run -it --platform $TARGET_PLATFORM \
     -v $PWD/kg2-build-logs:/home/ubuntu/kg2-build/logs \
     -v $PWD/data-staging:/home/ubuntu/data-staging \
