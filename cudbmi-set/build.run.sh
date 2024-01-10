@@ -15,7 +15,7 @@ sudo bash -x /home/ubuntu/RTX-KG2/cudbmi-set/build.test.sh
 # fix kg2_util.py module download_file_if_not_exist_locally function with retry capabilities
 sudo diff -u /home/ubuntu/RTX-KG2/kg2_util.py /home/ubuntu/RTX-KG2/cudbmi-set/kg2_util.intended.py | sudo tee /home/ubuntu/RTX-KG2/cudbmi-set/kg2_util.intended.py.patch > /dev/null
 sudo patch -p1 /home/ubuntu/RTX-KG2/kg2_util.py \
-    /home/ubuntu/RTX-KG2/cudbmi-set/kg2_util.intended.py.patch 
+    /home/ubuntu/RTX-KG2/cudbmi-set/kg2_util.intended.py.patch
 
 # prepare a place for the umls data to land
 sudo mkdir -p /home/ubuntu/kg2-build/umls

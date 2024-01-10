@@ -9,7 +9,7 @@
 set -o nounset -o pipefail -o errexit
 
 if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
-    echo Usage: "$0 [ci|test]" 
+    echo Usage: "$0 [ci|test]"
     exit 2
 fi
 
@@ -114,7 +114,7 @@ ${VENV_DIR}/bin/pip3 install -r ${CODE_DIR}/requirements-kg2-build.txt
 ## distribution and cURLing the startup script (note github uses URL redirection
 ## so we need the "-L" command-line option, and cURL doesn't like JAR files by
 ## default so we need the "application/zip")
-${curl_get} -H "Accept: application/zip" https://github.com/RTXteam/robot/releases/download/v1.3.0/robot.jar > ${BUILD_DIR}/robot.jar 
+${curl_get} -H "Accept: application/zip" https://github.com/RTXteam/robot/releases/download/v1.3.0/robot.jar > ${BUILD_DIR}/robot.jar
 curl -s https://raw.githubusercontent.com/RTXteam/robot/v1.3.0/bin/robot > ${BUILD_DIR}/robot
 chmod +x ${BUILD_DIR}/robot
 
@@ -139,7 +139,7 @@ RAPTOR_NAME=raptor2-2.0.15
 # setup raptor (used by the "checkOutputSyntax.sh" script in the umls2rdf package)
 ${curl_get} -o ${BUILD_DIR}/${RAPTOR_NAME}.tar.gz http://download.librdf.org/source/${RAPTOR_NAME}.tar.gz
 rm -r -f ${BUILD_DIR}/${RAPTOR_NAME}
-tar xzf ${BUILD_DIR}/${RAPTOR_NAME}.tar.gz -C ${BUILD_DIR} 
+tar xzf ${BUILD_DIR}/${RAPTOR_NAME}.tar.gz -C ${BUILD_DIR}
 cd ${BUILD_DIR}/${RAPTOR_NAME}
 ./autogen.sh --prefix=/usr/local
 make
@@ -174,7 +174,7 @@ EOF
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
     sudo apt-get update
     sudo apt-get -y install postgresql
-    
+
     sudo service postgresql start
     # Addresses permission issues
     # https://stackoverflow.com/questions/38470952/postgres-can-not-change-directory-in-ubuntu-14-04

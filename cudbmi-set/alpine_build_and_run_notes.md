@@ -158,7 +158,9 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
 - __Resources__:
 
   - 256 GiB of system memory
+
   - __Storage__
+
     - Total: 1,023 GiB (~1 TB) of disk space in the root file system
     - UMLS source data, `umls-2023AA-metathesaurus-full.zip`: 3.9G compressed, ~27 GB uncompressed
     - UMLS jsonl converted data `container:/home/ubuntu/kg2-build/umls.jsonl`: 3.8G
@@ -168,6 +170,7 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
     - DGIdb: `/home/ubuntu/kg2-build/dgidb/interactions.tsv`: 9.1 MB
 
   - Notes:
+
     - DBMI SET attempts with VM's took place on Google Cloud.
       See the following documentation for more information regarding [VM resource specifications](https://cloud.google.com/compute/all-pricing).
     - Attempting with GC e2-standard-8 encountered what looked like a memory lock-up (complete system frozen).

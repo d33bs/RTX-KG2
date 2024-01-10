@@ -5,7 +5,12 @@ default_language_version:
   python: python3.10
 # only run against files in cudbmi-set dir
 files: ^cudbmi-set/
-exclude: cudbmi-set/setup-kg2-build.intended.sh
+exclude: |
+          (?x)^(
+              cudbmi-set/setup-kg2-build.intended.sh|
+              cudbmi-set/kg2_util.intended.py
+          )$
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
