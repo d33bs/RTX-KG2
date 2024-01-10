@@ -193,6 +193,12 @@ See [this diagram](https://user-images.githubusercontent.com/36611732/119391891-
       - Link: [https://old.dgidb.org/data/monthly_tsvs/2022-Feb/interactions.tsv](https://old.dgidb.org/data/monthly_tsvs/2022-Feb/interactions.tsv)
       - Note: this data must be gathered from the "old" domain because the new schema does not match what is implemented within `dgidb_tsv_to_kg_jsonl.py`.
       - Note: this data is prepared manually to avoid issues with HTML parsing.
+    - repoDB: (`repodb.csv`)
+      - Links:
+        - Webpage: <http://apps.chiragjpgroup.org/repoDB/> (download link)
+        - Source for download link: <https://github.com/adam-sam-brown/repoDB/blob/master/Shiny_Application/server.R#L98>
+        - Data used by the source above: <https://github.com/adam-sam-brown/repoDB/blob/master/Shiny_Application/data/shiny.RData>
+      - Download the "full.csv" file and rename to "repodb.csv", prepare for data-staging with runtime.
 
 - __Time duration__:
 

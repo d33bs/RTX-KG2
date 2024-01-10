@@ -51,6 +51,9 @@ sudo sed -i.bak '48 s|psql -U|sudo -u ubuntu psql -U|' /home/ubuntu/RTX-KG2/extr
 # change the path of psql output to avoid root/ubuntu permission issues (and downstream permission change issues)
 sudo sed -i.bak '27s|.*|sudo chown root:ubuntu ${drugcentral_dir} \&\& sudo chmod 775 ${drugcentral_dir}|' /home/ubuntu/RTX-KG2/extract-drugcentral.sh
 
+# add copy step for repodb.csv to ensure the data lands where it is needed
+sudo sed -i.bak '24s|.*|sudo cp /home/ubuntu/data-staging/repodb.csv /home/ubuntu/kg2-build/repodb/repodb.csv|' /home/ubuntu/RTX-KG2/extract-repodb.sh
+
 # run the build in alltest mode
 # sudo bash -x /home/ubuntu/kg2-code/build-kg2-snakemake.sh alltest
 
