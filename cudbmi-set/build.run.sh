@@ -17,6 +17,12 @@ sudo diff -u /home/ubuntu/RTX-KG2/kg2_util.py /home/ubuntu/RTX-KG2/cudbmi-set/kg
 sudo patch -p1 /home/ubuntu/RTX-KG2/kg2_util.py \
     /home/ubuntu/RTX-KG2/cudbmi-set/kg2_util.intended.py.patch
 
+# fix reactome_mysql_to_kg_jsonl.py with Regulation_2_summation replacement
+# see: https://github.com/RTXteam/RTX-KG2/commit/1503bd62a5c2083a385cb4bd44879213ae067837
+sudo diff -u /home/ubuntu/RTX-KG2/reactome_mysql_to_kg_jsonl.py /home/ubuntu/RTX-KG2/cudbmi-set/reactome_mysql_to_kg_jsonl.intended.py | sudo tee /home/ubuntu/RTX-KG2/cudbmi-set/reactome_mysql_to_kg_jsonl.intended.py.patch > /dev/null
+sudo patch -p1 /home/ubuntu/RTX-KG2/reactome_mysql_to_kg_jsonl.py \
+    /home/ubuntu/RTX-KG2/cudbmi-set/reactome_mysql_to_kg_jsonl.intended.py.patch
+
 # prepare a place for the umls data to land
 sudo mkdir -p /home/ubuntu/kg2-build/umls
 
