@@ -3,6 +3,11 @@
 This readme describes how to build RTX-KG2 dataset generation image(s) and how to obtain the data for use on other systems.
 Content here references and modifies steps from [`README.md`](README.md).
 
+## Releases
+
+RTX-KG2 uses various git tags for their release process along with GitHub Releases to help distribute those releases.
+The `master` branch is not aligned with the latest release `KG2.8.6`.
+
 ## Proposed Goal
 
 ```mermaid
